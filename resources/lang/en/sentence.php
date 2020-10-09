@@ -59,25 +59,29 @@ return [
     ],
     'signup' => [
         'createYourBusinessAccount' => 'Create your business account',
-        'firstName'                 => 'First Name',
-        'lastName'                  => 'Last Name',
+        'firstName'                 => 'First name',
+        'lastName'                  => 'Last name',
         'password'                  => 'Password ',
         'confirmPassword'           => 'Confirm Password',
-        'enterYourBusinessName'     => 'Enter Your Business name',
-        'yourEmail'                 => 'Your Email',
-        'yourPhone'                 => 'Your Phone',
-        'selectCountry'             => 'Select Country',
-        'enterYourCity'             => 'Enter Your city',
-        'enterYourStreetNumber'     => 'Enter Your Street Number',
-        'enterYourPostalCode'       => 'Enter Your Postal Code',
+        'email'                     => 'Email',
+        'phone'                     => 'Phone',
+        'country'                   => 'Country',
+        'city'                      => 'City',
+        'street'                    => 'Street',
+        'streetNumber'              => 'Street Number',
+        'postalCode'                => 'Postal Code',
         'iConfirmed'                => 'I confirmed i have read the',
         'iAccept'                   => 'I accept to receive communication from Cerca De Mi',
         'alreadyHaveAccount'        => 'Already Have account?',
         'registerNow'               => 'Register Now',
-        'selectShopCategory'        => 'Select shop category',
         'spain'                     => 'Spain',
         'unitedKingdom'             => 'United Kingdom',
         'text'                      => 'Sign up',
+        'companyName'               => 'Company Name',
+        'companyType'               => 'Company Type',
+        'category'                  => 'Category',
+        'subcategory'               => 'Sub Category',
+        'selectOption'              => 'select option',
     ],
     'signin' => [
         'rememberMe'                => 'Remember me',
@@ -85,6 +89,17 @@ return [
         'loginButton'               => 'Login',
     ],
     'business' => [
+        'sidebar' => [
+            'label' => [
+                'dashboard' => 'Dashboard',
+                'clients'   => 'Clients',
+                'orders'    => 'Orders',
+                'products'  => 'Products',
+                'store'     => 'Store',
+            ],
+            'button' => [],
+            'link' => []
+        ],
         'dashboard' => [
               'label' => [
                 'users'     => 'Users',
@@ -114,7 +129,7 @@ return [
 
                 ],
                 'button' => [
-    
+
                 ],
                 'link' => [
                   'moreInfo'   => 'More Info',
@@ -157,8 +172,6 @@ return [
                 'shopTelephone'           => 'Shop Telephone',
                 'back'                    => 'Back',
                 'shopOwnerEmail'          => 'Shop Owner Email',
-                'password'                => 'Password',
-                'category'                => 'Category',
                 'selectOne'               => 'Select One',
                 'subCategory'             => 'Sub Category',
                 'businessDescription'     => 'Business Description',
@@ -167,6 +180,26 @@ return [
                 'coverImage'              => 'Cover Image',
                 'shopIcon'                => 'Shop Icon',
                 'preferableSize'          => 'Preferrable size',
+                'postCode'                => 'Postal Code',
+                'businessType'            => 'Business Type',
+                'businessDetails'         => 'Business Details',
+                'manageAddress'           => 'Manage Address',
+                'managePassword'          => 'Manage Password',
+
+                'password'                  => 'Password ',
+                'confirmPassword'           => 'Repeat Password',
+                'email'                     => 'Email',
+                'phone'                     => 'Telephone',
+                'country'                   => 'Country',
+                'streetNumber'              => 'Street Number',
+                'street'                    => 'Street',
+                'city'                      => 'City',
+                'postalCode'                => 'Postal Code',
+                'companyName'               => 'Company Name',
+                'companyType'               => 'Company Type',
+                'category'                  => 'Category',
+                'subcategory'               => 'Sub Category',
+                'selectOption'              => 'select option',
             ],
             'button' => [
                 'updateStore'             => 'Update Store',

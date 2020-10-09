@@ -26,7 +26,7 @@
                         
                         <div class="enter-conta">
                             <form action="{{route('bus/addproductsubmit')}}" method="post" enctype="multipart/form-data">
-                            <a href="{{route('bus/products') }}" class="btn btn-primary">{{ trans('sentence.business.product.label.back') }}</a>
+                            <a href="{{route('bus/products') }}" class="btn takfua-back text-white">{{ trans('sentence.business.product.label.back') }}</a>
                             <h3 class="mt-2">{{ trans('sentence.business.product.label.addProduct') }}</h3>
                             <div class="row mt-1">
                                 <div class="col-md-12">
@@ -93,7 +93,7 @@
                                         
                                         <div id="dyn_colors">
                                         </div>
-                                        <button class="btn btn-success" id="addcolor" type="button">{{ trans('sentence.business.product.button.add') }}</button>
+                                        <button class="btn takfua-back text-white" id="addcolor" type="button">{{ trans('sentence.business.product.button.add') }}</button>
                                     </div>
                                     <div class="col-md-6">
                                         <h4 class="card-title">{{ trans('sentence.business.product.label.productSizes') }}</h4>
@@ -101,7 +101,7 @@
                                         
                                         <div id="dyn_sizes">
                                         </div>
-                                        <button class="btn btn-success" id="addsize" type="button">{{ trans('sentence.business.product.button.add') }}</button>
+                                        <button class="btn takfua-back text-white" id="addsize" type="button">{{ trans('sentence.business.product.button.add') }}</button>
                                     </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@
                                 </div>
                               </div> 
                               @csrf
-                              <button class="btn btn-primary" type="submit">{{ trans('sentence.business.product.button.submit') }}</button> 
+                              <button class="btn takfua-back text-white" type="submit">{{ trans('sentence.business.product.button.submit') }}</button> 
                             </form>                                                                      
                         </div>
                     </div>
@@ -178,7 +178,7 @@
             i++;
             var color = `'color_${i}'`;
             $("#dyn_colors").append(
-                '<div style="display: flex" class="mb-2" id='+color+'><input type="text" class="form-control" name="colors[]"><button  type="button" style="background: red;border:none;outline:none" onclick="deleteColor('+color+')">Remove</button></div>'
+                '<div style="display: flex" class="mb-2" id='+color+'><input type="text" class="form-control" name="colors[]"><button  type="button" style="background: red;border:none;outline:none;color:white" onclick="deleteColor('+color+')">Remove</button></div>'
                 );
         });
 
@@ -186,7 +186,7 @@
         $("#addsize").click(()=>{
             var size = `'size_${j}'`;
             $("#dyn_sizes").append(
-                '<div style="display: flex" class="mb-2" id='+size+'><input type="text" class="form-control" name="sizes[]"><button type="button" style="background: red;border:none;outline:none" onclick="deleteSize('+size+')">Remove</button></div>'
+                '<div style="display: flex" class="mb-2" id='+size+'><input type="text" class="form-control" name="sizes[]"><button type="button" style="background: red;border:none;outline:none;color:white" onclick="deleteSize('+size+')">Remove</button></div>'
                 );
         });
     });

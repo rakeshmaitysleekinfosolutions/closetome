@@ -936,3 +936,6 @@ input[name="star"]:checked + label {
     padding: 8px 0;
 }
 
+.bussiness-form .error {
+    color: #dc3545;
+}

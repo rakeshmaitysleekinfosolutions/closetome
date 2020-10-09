@@ -43,7 +43,7 @@
                                 {{ trans('sentence.footer.howToCreateYourBusiness') }} <div style="margin-left: 22px;">{{ trans('sentence.footer.portal') }}</div>
                                 </a>
                             </li>
-                            
+
                             <li><a href="patient-dashboard.html"><i class="fas fa-angle-double-right"></i> {{ trans('sentence.footer.pricing') }}</a></li>
                         </ul>
                     </div>
@@ -148,3 +148,6 @@
 <script src="{{ URL::asset('assets/js/import.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/js/main.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/js/myscript.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('assets/js/jquery.validate.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('assets/js/additional-methods.js')}}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/js/app.js')}}"></script>

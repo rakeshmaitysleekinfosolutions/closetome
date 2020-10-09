@@ -7,7 +7,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\BusinessUserController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\ManageStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +67,24 @@ Route::get('/site-owner',[AdminController::class,'index'])->name('site-owner');
 Route::get('/site-owner/dashboard',[AdminController::class,'dashboard'])->name('site-owner/dashboard');
 Route::get('/site-owner/cmspages',[AdminController::class,'cmspageList'])->name('site-owner/cmspages');
 Route::get('/site-owner/cmspageform',[AdminController::class,'cmsPageEdit'])->name('site-owner/cmspageform');
+
+
+Route::get('/site-owner/cmspageform',[AdminController::class,'cmsPageEdit'])->name('site-owner/cmspageform');
+
+
+
+Route::get('/bus/manage-store', [
+    \App\Http\Controllers\BusinessUserController::class, 'index'
+])->name('manage-store');
+
+Route::post('/fetch-categories', [
+    \App\Http\Controllers\BusinessUserController::class, 'fetchParentCategory'
+])->name('fetch-categories');
+
+Route::post('/fetch-subcategories', [
+    \App\Http\Controllers\BusinessUserController::class, 'fetchChildCategory'
+])->name('fetch-subcategories');
+
+Route::post('/bus/manage-store/update', [
+    \App\Http\Controllers\BusinessUserController::class, 'update'
+])->name('update-store');

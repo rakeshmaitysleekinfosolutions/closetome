@@ -1,0 +1,13 @@
+{
+    "name": "BusinessPortal",
+    "alias": "businessportal",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BusinessPortal\\Providers\\BusinessPortalServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

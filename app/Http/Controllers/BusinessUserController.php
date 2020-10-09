@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusinessType;
+use App\Models\BusinessTypeChildCategory;
+use App\Models\BusinessTypeParentCategory;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Shopcategory;
@@ -11,11 +15,199 @@ use App\Models\VendorProduct;
 use App\Models\VendorProductColor;
 use App\Models\VendorProductSize;
 use App\Models\VendorProductImage;
-
+use Illuminate\Support\Facades\Mail;
 use File;
+use Illuminate\Support\Str;
 
 class BusinessUserController extends Controller
 {
+
+    private $vendor;
+    private $businessUserInfo;
+    private $businessTypeId;
+    private $businessTypeParentCategory;
+    private $businessType;
+    private $coverImage;
+    private $coverImageFile;
+    private $shopImageFile;
+    private $shopImage;
+    /**
+     * @var string
+     */
+    private $shopIcon;
+    private $shopIconFile;
+
+    public function __construct(Vendor $vendor, BusinessType $businessType, BusinessTypeParentCategory $businessTypeParentCategory) {
+        $this->vendor = $vendor;
+        $this->businessType = $businessType;
+        $this->businessTypeParentCategory = $businessTypeParentCategory;
+    }
+    /**
+     * @var mixed
+     */
+    private $businessUserId;
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function index()
+    {
+        if (!session()->get('businessuser_info')) {
+            return redirect('bus/signin');
+        }
+        if (session()->has('businessUserId')) {
+            $this->businessUserId = session()->get('businessUserId');
+        }
+        if($this->businessUserId) {
+            $this->businessUserInfo = $this->vendor->find($this->businessUserId);
+        }
+        if($this->businessUserInfo) {
+            $this->data['businessUserInfo'] = $this->businessUserInfo->toArray();
+        }
+
+        $this->data['businessTypes'] = BusinessType::all()->toArray();
+        //dd($this->data['businessUserInfo']);
+        return view('businessportal.index', $this->data);
+
+        //dd($this->vendor);
+
+    }
+    public function setBusinessTypeId($id) {
+        $this->businessTypeId = $id;
+        return $this;
+    }
+    public function fetchParentCategory(Request $request) {
+        if($request->ajax()) {
+            $this->businessTypeId = ($request->has('businessType')) ? $request->get('businessType') : '';
+            if($this->businessTypeId) {
+                $categories = BusinessTypeParentCategory::where('business_type_id', $this->businessTypeId)->get();
+                if(count($categories) > 0) {
+                    foreach ($categories as $category) {
+                        $this->response[] = array(
+                            'id'    => $category->category_id,
+                            'name'  => $category->spanish_translation
+                        );
+                    }
+                }
+                return response()->json(['businessTypeParentCategory' => $this->response],200);
+            }
+            return response()->json(['businessTypeParentCategory' => $this->response],200);
+        }
+    }
+    public function fetchChildCategory(Request $request) {
+        if($request->ajax()) {
+            $businessTypeParentCategoryName = ($request->has('businessTypeParentCategory')) ? $request->get('businessTypeParentCategory') : '';
+            $parentCategory                 = BusinessTypeParentCategory::where('spanish_translation', $businessTypeParentCategoryName)->get();
+            if($parentCategory) {
+                $childCategories = BusinessTypeChildCategory::where('category_id', $parentCategory[0]->category_id)->whereNotNull('subcategory_name')->get();
+            }
+            //dd($childCategories);
+            if(count($childCategories) > 0) {
+                foreach ($childCategories as $childCategory) {
+                    $this->response[] = array(
+                        'id'    => $childCategory->subcategory_id ,
+                        'name'  => $childCategory->spanish_translation
+                    );
+                }
+            }
+            return response()->json(['businessTypeChildCategory' => $this->response],200);
+        }
+    }
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function update(Request $request)
+    {
+
+        $this->vendor = $this->vendor->find($request->post('vendor_id'));
+        $oldPassword = $this->vendor->raw_password;
+        //dd($request->all());
+        // Cover Image
+        $target = public_path().'/assets/images/vendors/';
+        if(!empty($request->file('cover_image'))) {
+
+            $this->coverImageFile = $request->file('cover_image');
+            $existingCoverImageWithPath = public_path('assets\images\vendors\\'.$this->vendor->coverimage);//public_path().'/uploads/'.$existingAvatar;
+            \File::delete($existingCoverImageWithPath);
+            $this->coverImage = time(). '-' . strtolower($this->coverImageFile->getClientOriginalName());
+            $this->coverImageFile->move($target, $this->coverImage);
+        } else {
+            $this->coverImage = $this->vendor->coverimage;
+        }
+
+        // Shop Image
+        if(!empty($request->file('shop_image'))) {
+            $this->shopImageFile = $request->file('shop_image');
+            $existingCoverImageWithPath = public_path('assets\images\vendors\cover_image\\'.$this->vendor->shop_image);//public_path().'/uploads/'.$existingAvatar;
+            \File::delete($existingCoverImageWithPath);
+            $this->shopImage = time(). '-' . strtolower($this->shopImageFile->getClientOriginalName());
+            $this->shopImageFile->move($target, $this->shopImage);
+        } else {
+            $this->shopImage = $this->vendor->shop_image;
+        }
+        // dd($this->shopImage);
+        // Shop Icon
+        if(!empty($request->file('shop_icon'))) {
+            $this->shopIconFile = $request->file('shop_icon');
+            $existingCoverImageWithPath = public_path('assets\images\vendors\\'.$this->vendor->shop_icon);//public_path().'/uploads/'.$existingAvatar;
+            \File::delete($existingCoverImageWithPath);
+            $this->shopIcon = time(). '-' . strtolower($this->shopIconFile->getClientOriginalName());
+            $this->shopIconFile->move($target, $this->shopIcon);
+        } else {
+            $this->shopIcon = $this->vendor->shop_icon;
+        }
+
+        $this->vendor->business_name            = ($request->has('business_name')) ? $request->get('business_name') : $this->vendor->business_name;
+        $this->vendor->business_description     = ($request->has('business_description')) ? $request->get('business_description') : $this->vendor->business_description;
+        $this->vendor->phone                    = ($request->has('phone')) ? $request->get('phone') : $this->vendor->phone;
+        $this->vendor->email                    = ($request->has('email')) ? bcrypt($request->get('email')) : $this->vendor->email;
+        $this->vendor->raw_email                = ($request->has('email')) ? $request->get('email') : $this->vendor->raw_email;
+        $this->vendor->business_type            = ($request->has('business_type')) ? BusinessType::find($request->get('business_type'))->business_type_name : $this->vendor->business_type;
+        $this->vendor->category                 = ($request->has('category')) ? $request->get('category') : $this->vendor->category;
+        $this->vendor->subcategory              = ($request->has('subcategory')) ? $request->get('subcategory') : $this->vendor->subcategory;
+        $this->vendor->country                  = ($request->has('country')) ? $request->get('country') : $this->vendor->country;
+        $this->vendor->city                     = ($request->has('city')) ? $request->get('city') : $this->vendor->city;
+        $this->vendor->street                   = ($request->has('street')) ? $request->get('street') : $this->vendor->street;
+        $this->vendor->street_number            = ($request->has('street_number')) ? $request->get('street_number') : $this->vendor->street_number;
+        $this->vendor->postal_code              = ($request->has('postal_code')) ? $request->get('postal_code') : $this->vendor->postal_code;
+        $this->vendor->password                 = ($request->get('password') != null) ? bcrypt($request->get('password')) : $this->vendor->password;
+        $this->vendor->raw_password             = ($request->get('password') != null) ? $request->get('password') : $oldPassword;
+        //dd($oldPassword);
+        $this->vendor->coverimage              =  $this->coverImage;
+        $this->vendor->shop_image               =  $this->shopImage;
+        $this->vendor->shop_icon                =  $this->shopIcon;
+
+        $this->vendor->save();
+
+        session()->put('businessuser_info',[
+            'name'          => $this->vendor->firstname." ".$this->vendor->firstname,
+            'business_name' => $this->vendor->business_name,
+            'image'         => ($this->vendor->shop_icon) ? asset('assets/images/vendors/'.$this->vendor->shop_icon) : asset('assets/images/users/user.png'),
+            'user_id'       => $this->vendor->vendor_id
+        ]);
+        session()->put('businessUserId', $this->vendor->vendor_id);
+        //Toastr::success('Messages in here', 'Title', ["positionClass" => "toast-top-center"]);
+        session()->flash('message', 'La tienda se ha modificado correctamente');
+        return redirect('/bus/manage-store');
+    }
+
+    public function forgotten(Request $request) {
+        $this->validate($request, [
+            'email' => 'required|email|unique_email:vendors|real_email',
+        ]);
+        $email = $request->get('email');
+        $this->vendor = $this->vendor->where('email', $email)->first();
+        $this->vendor->code = Str::random(16);
+        $this->vendor->save;
+        Mail::send('businessportal.emails.forgotten', ['user' => $this->vendor], function ($message) use ($email): void {
+            $message->to($email, $this->vendor->business_name)->subject('Confirm email address change');
+        });
+        return redirect('/bus/signin')->with('success_msg', 'A link has been sent to the email address provided to confirm the change.');
+    }
     public function signup(){
         $extra_style = 'assets/css/bus_signup_style.css';
         $shop_categories = Shopcategory::orderBy('spanish_translation')->get();
@@ -23,7 +215,10 @@ class BusinessUserController extends Controller
 
         $business_types = new Category;
         $business_type_data = $business_types->getBusinessTypes();
-        return view('business.busi_signup')->with(['data'=>$extra_style,'shop_categories'=>$shop_categories,'categories'=>$categories,'business_types'=>$business_type_data]);
+        $businessTypes = array();
+        $businessTypes = BusinessType::all()->toArray();
+
+        return view('business.busi_signup')->with(['data'=>$extra_style,'shop_categories'=>$shop_categories,'categories'=>$categories,'business_types'=>$business_type_data,'businessTypes'=>$businessTypes]);
     }
 
     public function signup_submit(Request $request){
@@ -50,14 +245,14 @@ class BusinessUserController extends Controller
             'country.required' => 'Country is required',
             'confirmed.required' => 'Please confirm',
             'acceptcheckbox.required' => 'Please accept',
-        ]    
+        ]
     );
     $email = $request->input('email');
     $password = $request->input('password');
     $cnfmpassword = $request->input('cnfmpassword');
-    
+
     $v = new Vendor;
-    
+
     if($password == $cnfmpassword){
         if(count($v->checkEmailExists($email))==0){
             $new_vendor = Vendor::create([
@@ -72,19 +267,28 @@ class BusinessUserController extends Controller
                 'street'    => $request->input('street'),
                 'street_number' => $request->input('street_number'),
                 'country'   => $request->input('country'),
-                'city'      => $request->input('address'),
+                'city'      => $request->input('city'),
                 'postal_code'  => $request->input('postal_code'),
-                'shop_type' => $request->input('shopcategory'),
+                'business_type' => BusinessType::find($request->get('business_type'))->business_type_name,
+                'category' => $request->input('category'),
+                'subcategory' => $request->input('subcategory'),
                 'business_name' =>$request->input('businessname')
             ]);
             $new_vendor->save();
             $id= $new_vendor->id;
             $session_data = [
                 'name' => $request->input('firstname')." ".$request->input('lastname'),
-                'image'=> 'user.png',
-                'user_id'=>$id
+                'business_name' => $new_vendor->business_name,
+                'image'=> ($new_vendor->shop_icon) ? asset('assets/images/vendors/'.$new_vendor->shop_icon) : asset('assets/images/users/user.png'),
+                'user_id'=>$new_vendor->id
             ];
             $request->session()->put('businessuser_info',$session_data);
+
+            // Code added by rakesh
+            if(isset($new_vendor->id)) {
+                $request->session()->put('businessUserId', $new_vendor->id);
+            }
+
             return redirect('bus/dashboard');
         }else{
             return redirect('/bus/signup')->with('email_msg','Email Already Exists! Please try another');
@@ -107,7 +311,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        } 
+        }
     }
     public function customers(Request $request){
         if ($request->session()->has('businessuser_info')) {
@@ -118,7 +322,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }     
+        }
     }
     public function manageOrders(Request $request){
      if ($request->session()->has('businessuser_info')) {
@@ -129,12 +333,13 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }   
+        }
     }
     public function signout(Request $request){
         // Forget a single key...
         $request->session()->forget('businessuser_info');
-        return redirect('bus/signin');        
+        $request->session()->forget('businessUserId');
+        return redirect('bus/signin');
     }
 
     public function logincheck(Request $request){
@@ -149,10 +354,16 @@ class BusinessUserController extends Controller
             foreach($u->checkLogin($email,$password) as $user){
                 $session_data = [
                     'name' => $user->business_name,
-                    'image'=> 'user.png',
-                    'user_id'=>$user->vendor_id
+                    'image'=> ($user->shop_icon) ? asset('assets/images/vendors/'.$user->shop_icon) : asset('assets/images/users/user.png'),
+                    'user_id'=>$user->vendor_id,
+                    'business_name' => $user->business_name,
                 ];
+               // dd($session_data);
                 $request->session()->put('businessuser_info',$session_data);
+                // Code added by rakesh
+                if(isset($user->vendor_id)) {
+                    $request->session()->put('businessUserId', $user->vendor_id);
+                }
                 return redirect('bus/dashboard');
             }
         }
@@ -160,7 +371,7 @@ class BusinessUserController extends Controller
             return redirect('/bus/signin')->with('msg','Invalid Email or password');
         }
     }
-    
+
     public function manageStore(Request $request){
         if ($request->session()->has('businessuser_info')) {
             $user_info = $request->session()->get('businessuser_info','default');
@@ -171,30 +382,53 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }     
+        }
     }
 
-    public function storeUpdate(Request $request){
-        
-    
+    public function setStoreData($data) {
+
+    }
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function storeUpdate(Request $request) {
+
         if($request->file('cover_image')){
             $img = Vendor::where('vendor_id',$request->input('vendor_id'))->take(1)->first()->coverimage;
             if($img!='' && File::exists($img)){
-            unlink(public_path('assets\images\vendors\\'.$img));            
+                unlink(public_path('assets\images\vendors\\'.$img));
             }
         }
 
-        $coverimage = strtotime("now") . "_" . $request->input('vendor_id');
-        $file = $request->file('cover_image');
-        $ext = $file->extension();
-        $coverimage = $coverimage . '.' . $ext;
+        $coverimage     = strtotime("now") . "_" . $request->input('vendor_id');
+        $file           = $request->file('cover_image');
+        $ext            = $file->extension();
+        $coverimage     = $coverimage . '.' . $ext;
+        $vendor_id      = $request->input('vendor_id');
 
-        $vendor_id = $request->input('vendor_id');
-        $affectedRows = Vendor::where('vendor_id',$vendor_id)->update(array(
-            'business_name' => $request->input('business_name'),
-            'shop_type' => $request->input('shopcat'),
-            'coverimage' => $coverimage
-        ));
+        $affectedRows = Vendor::where('vendor_id',$vendor_id)->update([
+            'business_name'         => $request->input('business_name'),
+            'business_description'  => $request->input('business_description'),
+            'email'                 => bcrypt($request->input('email')),
+            'raw_email'             => $request->input('email'),
+            'password'              => bcrypt($request->input('password')),
+            'raw_password'          => $request->input('password'),
+            'phone'                 => $request->input('phone'),
+            'shop_type'             => $request->input('shop_type'),
+            'business_type'         => $request->input('business_type'),
+            'sub_category_name'     => $request->input('sub_category_name'),
+            'country'               => $request->input('country'),
+            'city'                  => $request->input('city'),
+            'street'                => $request->input('street'),
+            'street_number'         => $request->input('street_number'),
+            'postal_code'           => $request->input('postal_code'),
+            'shop_type'             => $request->input('shopcategory'),
+            'category_name'         => $request->input('category_name'),
+            'sub_category_name'     => $request->input('sub_category_name'),
+            'coverimage'            => $coverimage,
+            'shop_icon'             => $request->input('shop_icon'),
+        ]);
         #Setting Up The Destination Path
         $target = "public/assets/images/vendors";
         // #Moving The file from its temp location to Real Server Location .
@@ -217,7 +451,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }     
+        }
     }
     public function showSingleProduct($product_id,Request $request)
     {
@@ -229,7 +463,7 @@ class BusinessUserController extends Controller
             $vendor = Vendor::where('vendor_id',$vid)->take(1)->first();
             // $shop_categories = VendorProduct::all();
             $v = new VendorProduct;
-            
+
             $product_detail = $v->getProductDetailById($id);
             $product_variant_detail = $v->getProductVariantDetailById($id);
             $product_images = $v->getProductImagesById($id);
@@ -242,7 +476,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }     
+        }
     }
 
     public function editProduct($product_id,Request $request)
@@ -255,7 +489,7 @@ class BusinessUserController extends Controller
             $vendor = Vendor::where('vendor_id',$vid)->take(1)->first();
             // $shop_categories = VendorProduct::all();
             $v = new VendorProduct;
-            
+
             $product_detail = $v->getProductDetailById($id);
             $product_variant_detail = $v->getProductVariantDetailById($id);
             $product_images = $v->getProductImagesById($id);
@@ -269,7 +503,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }     
+        }
     }
 
     public function ajaxSubCats(Request $request){
@@ -292,7 +526,7 @@ class BusinessUserController extends Controller
             $u_array['product_price'] = $request->input('product_price');
             $u_array['product_quantity'] = $request->input('product_quantity');
             $aff = VendorProduct::where('vendor_product_id',$request->input('vendor_product_id'))->update($u_array);
-            
+
             $color = VendorProductColor::where('vendor_product_id',$vp_id);
             $color->delete();
             $size = VendorProductSize::where('vendor_product_id',$vp_id);
@@ -325,7 +559,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }     
+        }
     }
     public function addProduct(Request $request){
         if ($request->session()->has('businessuser_info')) {
@@ -334,7 +568,7 @@ class BusinessUserController extends Controller
             $vendor = Vendor::where('vendor_id',$vid)->take(1)->first();
             // $shop_categories = VendorProduct::all();
             $v = new VendorProduct;
-            
+
             // $product_detail = $v->getProductDetailById($id);
             // $product_variant_detail = $v->getProductVariantDetailById($id);
             // $product_images = $v->getProductImagesById($id);
@@ -348,7 +582,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }     
+        }
     }
 
     public function addProductSubmit(Request $request){
@@ -401,16 +635,16 @@ class BusinessUserController extends Controller
             if($request->file('file'.$i) !=null){
                 $file = $request->file('file'.$i);
                 $ext = $file->extension();
-                $file_image = strtotime("now") . "_" . $vid . "_file".$i;        
+                $file_image = strtotime("now") . "_" . $vid . "_file".$i;
                 $file_image = $file_image . '.' . $ext;
                 $target = "public/assets/images/product_images";
                 // #Moving The file from its temp location to Real Server Location .
-                $file->move($target,$file_image); 
-                
+                $file->move($target,$file_image);
+
                 $newImage = VendorProductImage::create([
                     'vendor_product_image' => $file_image,
-                    'vendor_product_id'=>$id                    
-                ]);           
+                    'vendor_product_id'=>$id
+                ]);
                 $newImage->save();
             }
         }
@@ -420,7 +654,7 @@ class BusinessUserController extends Controller
     }
         else{
             return redirect('bus/signin');
-        }             
+        }
     }
     public function deleteProduct($id,Request $request){
         if ($request->session()->has('businessuser_info')) {
@@ -439,7 +673,7 @@ class BusinessUserController extends Controller
         }
         else{
             return redirect('bus/signin');
-        }             
+        }
 
     }
 
@@ -448,6 +682,6 @@ class BusinessUserController extends Controller
         App::setLocale($locale);
         session()->put('locale', $locale);
         return redirect()->back();
-    }    
+    }
 
 }

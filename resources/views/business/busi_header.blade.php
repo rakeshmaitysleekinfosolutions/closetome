@@ -9,12 +9,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                
+
             </ul>
             <form class="my-lg-0" style=" padding-top: 12px;">
                 <ul class="form-inline list-unstyled">
                     <li class="nav-item">
-                        <a class="nav-link " href="">{{ $vendor->business_name }}</a>
+                        <a class="nav-link " href="">{{ session()->get('businessuser_info')['business_name'] }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="{{ route('bus/signout') }}">{{ trans('sentence.Logout') }}</a>
@@ -39,12 +39,12 @@
                             </div>
                         </div>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link icon-font" href="login.php"><i class="far fa-paper-plane"></i></a>
                     </li>
                     <li class="nav-item">
-                        <img class="img-profile-nav border" src="{{ URL::asset('assets/images/users/user.png') }}">
+                        <img class="img-profile-nav border" src="{{ session()->get('businessuser_info')['image'] }}">
                     </li>
                 </ul>
              </form>

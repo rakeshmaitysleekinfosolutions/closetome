@@ -28,17 +28,17 @@
                         <div class="enter-conta">
                             <div class="row justify-content-center">
                                 <div class="table-responsive">
-                                    <a href="{{ route('bus/addproduct')}}" class="btn btn-info btn-just-icon btn-sm">{{ trans('sentence.Add_product') }}</a>
+                                    <a href="{{ route('bus/addproduct')}}" class="btn takfua-back text-white btn-just-icon btn-sm">{{ ucfirst(trans('sentence.business.product.label.addProduct')) }}</a>
                                     <table class="table table-striped mt-2">
                                         <thead>
 
                                         <tr class="takfua-back">
                                             <th class="text-center">#</th>
                                             {{-- <th>Product Image</th> --}}
-                                            <th class="text-center">{{ trans('sentence.business.product.label.productName') }}</th>
-                                            <th class="text-center">{{ trans('sentence.business.product.label.productPrice') }}</th>
-                                            <th class="text-center">{{ trans('sentence.business.product.label.productQuantity') }}</th>
-                                            <th class="text-center">{{ trans('sentence.business.product.label.action') }}</th>
+                                            <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.productName')) }}</th>
+                                            <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.productPrice')) }}</th>
+                                            <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.productQuantity')) }}</th>
+                                            <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.action')) }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
