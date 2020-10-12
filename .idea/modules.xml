@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/closetome.iml" filepath="$PROJECT_DIR$/.idea/closetome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../closetome-beta/.idea/closetome-beta.iml" filepath="$PROJECT_DIR$/../closetome-beta/.idea/closetome-beta.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../shoutboard/.idea/shoutboard.iml" filepath="$PROJECT_DIR$/../../../shoutboard/.idea/shoutboard.iml" />
     </modules>
   </component>

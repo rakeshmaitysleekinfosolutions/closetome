@@ -124,5 +124,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="shoutboard" />
+    <orderEntry type="module" module-name="closetome-beta" />
   </component>
 </module>

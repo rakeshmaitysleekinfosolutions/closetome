@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -25,18 +25,18 @@
         <link rel="stylesheet" href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}">
         <link href="{{ URL::asset('assets/css/import.css') }}" rel="stylesheet" type="text/css"/>
         @isset($data)
-            <link href="{{ URL::asset($data) }}" rel="stylesheet" type="text/css"/>            
-        @endisset    
+            <link href="{{ URL::asset($data) }}" rel="stylesheet" type="text/css"/>
+        @endisset
         <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
         <!-- Main CSS -->
 <!--        <link rel="stylesheet" href="assets/css/style.css">
-        
+
         <link href="assets/db/css/icons.css" rel="stylesheet">
 
 	<link rel="stylesheet" href="assets/md/css/bootstrap.min.css">
-         Material Design Bootstrap 
+         Material Design Bootstrap
         <link rel="stylesheet" href="assets/md/css/mdb.min.css">
-         Your custom styles (optional) 
+         Your custom styles (optional)
         <link rel="stylesheet" href="assets/md/css/style.css">-->
 <style>
     img {
@@ -195,12 +195,13 @@
         100% {
             opacity: 1;
             -webkit-transform: scale(1);
-            transform: scale(1); } }
+            transform: scale(1); }
+    }
 
     /*# sourceMappingURL=style.css.map */
-</style> 
+</style>
        </head>
-    
+
     <style>
         .user_card {
             height: 440px;
@@ -277,7 +278,7 @@
                             <img width="20%" src="{{URL::asset('assets/images/ui/logo.png')}}" class="brand_logo" alt="Logo">
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center form_container">						
+                    <div class="d-flex justify-content-center form_container">
                         <form action="{{ route('bus/logincheck') }}" method="POST">
                             @csrf
                             <div class="input-group mb-3">
@@ -309,13 +310,13 @@
                                 @error('password')
                                     {{ $message }}
                                 @enderror
-        
+
                                 @if(session()->has('msg'))
                                 {{session()->get('msg')}}
                                 @endif
                             </p>
-                            </div>                    
-        
+                            </div>
+
                         </form>
                     </div>
 

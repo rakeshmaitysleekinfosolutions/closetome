@@ -206,5 +206,36 @@ return [
             ],
             'link' => []
         ],
-    ]
+    ],
+    'restaurant' => [
+        'sidebar' => [
+            'label' => [
+                'dashboard'         => 'Dashboard',
+                'clients'           => 'Clients',
+                'adminOrders'       => 'Admin Orders',
+                'adminMenu'         => 'Admin Menu',
+                'adminRestaurant'   => 'Admin Restaurant',
+                'mentions'          => 'Mentions',
+                'tasks'             => 'Tasks',
+            ],
+            'button' => [],
+            'link' => []
+        ],
+        'dashboard' => [
+              'label' => [
+                'users'     => 'Clients',
+                'revenue'   => 'Revenue',
+                'artists'   => 'Artists',
+                'tasks'     => 'Tasks',
+                'orders'    => 'Orders',
+                'mentions'  => 'Mentions',
+              ],
+              'button' => [
+
+              ],
+              'link' => [
+                'moreInfo'   => 'More Info',
+              ]
+            ],
+    ],
 ];

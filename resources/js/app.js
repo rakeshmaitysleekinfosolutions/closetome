@@ -10,7 +10,9 @@
     // businessType
 
     var $frm = $("#frm"),
+        $registrationFrm = $('#registrationFrm'),
         validate = ($.fn.validate !== undefined);
+    // Update store form validation
     if ($frm.length > 0 && validate) {
         $frm.validate({
             rules:{
@@ -37,10 +39,10 @@
                     nowhitespace: true,
                     equalTo: "#input-password"
                 },
-                businessType: {
+                business_type: {
                     required: true,
                 },
-                businessTypeParentCategory: {
+                category: {
                     required: true,
                 },
                 city: {
@@ -59,11 +61,188 @@
                     integer: true
                 },
 
+            },
+            messages: {
+                business_name: {
+                    required: "Campo obligatorio",
+                },
+                business_description: {
+                    required: "Campo obligatorio",
+                },
+                email: {
+                    required: "Campo obligatorio",
+                    email: "Ingresa un correo electrónico valido"
+                },
+                mobile: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                    integer: "Ingresa un número de teléfono valido"
+                },
+                country: {
+                    required: "Campo obligatorio",
+                },
+                city: {
+                    required: "Campo obligatorio",
+                },
+                street: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                },
+                street_number: {
+                    required: "Campo obligatorio",
+                },
+                postal_code: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                    integer: "Ingresa un número de teléfono valido"
+                },
+                business_type: {
+                    required: "Campo obligatorio",
+                },
+                category: {
+                    required: "Campo obligatorio",
+                },
+                password: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                },
+                confirmed: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                    equalTo: "Las contraseñas no coinciden"
+                }
+
             }
         });
     }
-    $('select[name="businessType').on('change', function() {
-        var businessType = $('select[name="businessType"]').find(":selected").val();
+    // Business User form validation
+    if ($registrationFrm.length > 0 && validate) {
+        $registrationFrm.validate({
+            rules:{
+                firstname: {
+                    required: true,
+                },
+                lastname: {
+                    required: true,
+                },
+                businessname: {
+                    required: true,
+                },
+                business_description: {
+                    required: true,
+                },
+                confirmed: {
+                    required: true,
+                },
+                acceptcheckbox: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                mobile: {
+                    required: true,
+                    integer: true
+                },
+                password: {
+                    alphanumeric: true,
+                    nowhitespace: true
+                },
+                cnfmpassword: {
+                    alphanumeric: true,
+                    nowhitespace: true,
+                    equalTo: "#input-password"
+                },
+                business_type: {
+                    required: true,
+                },
+                category: {
+                    required: true,
+                },
+                city: {
+                    required: true,
+                },
+                country: {
+                    required: true,
+                },
+                street: {
+                    required: true,
+                },
+                street_number: {
+                    required: true,
+                },
+                postal_code: {
+                    required: true,
+                    nowhitespace: true,
+                    integer: true
+                },
+
+
+            },
+            messages: {
+                firstname: {
+                    required: "Campo obligatorio",
+                },
+                lastname: {
+                    required: "Campo obligatorio",
+                },
+                businessname: {
+                    required: "Campo obligatorio",
+                },
+                email: {
+                    required: "Campo obligatorio",
+                    email: "Ingresa un correo electrónico valido"
+                },
+                mobile: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                    integer: "Ingresa un número de teléfono valido"
+                },
+                country: {
+                    required: "Campo obligatorio",
+                },
+                city: {
+                    required: "Campo obligatorio",
+                },
+                street: {
+                    required: "Campo obligatorio",
+                },
+                street_number: {
+                    required: "Campo obligatorio",
+                },
+                postal_code: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                    integer: "Ingresa un número de teléfono valido"
+                },
+                business_type: {
+                    required: "Campo obligatorio",
+                },
+                category: {
+                    required: "Campo obligatorio",
+                },
+                password: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                },
+                cnfmpassword: {
+                    required: "Campo obligatorio",
+                    nowhitespace: "Ingresa un Código Postal Valid",
+                    equalTo: "Las contraseñas no coinciden"
+                },
+                confirmed: {
+                    required: "Campo obligatorio",
+                },
+                acceptcheckbox: {
+                    required: "Campo obligatorio",
+                },
+
+            }
+        });
+    }
+    $('select[name="business_type').on('change', function() {
+        var businessType = $('select[name="business_type"]').find(":selected").val();
         console.log(businessType);
         $.ajax({
             url: myLabel.parentCategory,
@@ -74,7 +253,7 @@
                 _token: myLabel.token,
             },
             beforeSend: function() {
-                $('select[name="businessType"]').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+                $('select[name="business_type"]').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
             },
             complete: function() {
                 $('.fa-spin').remove();
@@ -87,7 +266,7 @@
                 //     $('input[name=\'postcode\']').parent().parent().removeClass('required');
                 // }
                 var html = '';
-                html = '<option value="">select option</option>';
+                html = '<option value="">'+myLabel.selectOption+'</option>';
 
                 if (json['businessTypeParentCategory'] && json['businessTypeParentCategory'] != '') {
                     for (var i = 0; i < json['businessTypeParentCategory'].length; i++) {
@@ -104,7 +283,7 @@
                     html += '<option value="0" selected="selected">Empty</option>';
                 }
 
-                $('select[name="businessTypeParentCategory"]').html(html);
+                $('select[name="category"]').html(html);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -112,11 +291,11 @@
         });
     });
 
-    $('select[name="businessType"]').trigger('change');
+    $('select[name="business_type"]').trigger('change');
 
     // businessTypeParentCategory
-    $('select[name="businessTypeParentCategory').on('change', function() {
-        var businessTypeParentCategory = $('select[name="businessTypeParentCategory"]').find(":selected").val();
+    $('select[name="category').on('change', function() {
+        var businessTypeParentCategory = $('select[name="category"]').find(":selected").val();
         $.ajax({
             url: myLabel.childCategory,
             dataType: 'json',
@@ -126,7 +305,7 @@
                 _token: myLabel.token,
             },
             beforeSend: function() {
-                $('select[name="businessTypeParentCategory"]').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+                $('select[name="category"]').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
             },
             complete: function() {
                 $('.fa-spin').remove();
@@ -134,7 +313,7 @@
             success: function(json) {
                 console.log(json);
                 var html = '';
-                html = '<option value="">select option</option>';
+                html = '<option value="">'+myLabel.selectOption+'</option>';
 
                 if (json['businessTypeChildCategory'] && json['businessTypeChildCategory'] != '') {
                     for (var i = 0; i < json['businessTypeChildCategory'].length; i++) {
@@ -148,7 +327,7 @@
                     html += '<option value="0" selected="selected">Empty</option>';
                 }
 
-                $('select[name="businessTypeChildCategory"]').html(html);
+                $('select[name="subcategory"]').html(html);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -158,7 +337,7 @@
 
 
     setTimeout(function () {
-        $('select[name="businessTypeParentCategory"]').trigger('change');
+        $('select[name="category"]').trigger('change');
     },300)
 
 }(window.jQuery);

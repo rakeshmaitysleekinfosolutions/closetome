@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pagecontroller;
 use App\Http\Controllers\Shopcontroller;
-use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\RestaurantPortal\RestaurantController;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\BusinessUserController;
 use App\Http\Controllers\AdminController;
@@ -88,3 +88,44 @@ Route::post('/fetch-subcategories', [
 Route::post('/bus/manage-store/update', [
     \App\Http\Controllers\BusinessUserController::class, 'update'
 ])->name('update-store');
+
+
+/**
+ * Restuarant Controller
+ */
+
+
+
+Route::prefix('restaurantportal')->group(function() {
+    Route::get('/', [
+        \App\Http\Controllers\RestaurantPortal\DashboardController::class, 'index'
+    ])->name('restaurantportal.dashboard');
+
+    Route::get('/dashboard', [
+        \App\Http\Controllers\RestaurantPortal\DashboardController::class, 'index'
+    ])->name('restaurantportal.dashboard');
+
+    Route::get('/clients', [
+        \App\Http\Controllers\RestaurantPortal\ClientController::class, 'index'
+    ])->name('restaurantportal.clients');
+
+    Route::get('/menus', [
+        \App\Http\Controllers\RestaurantPortal\MenuController::class, 'index'
+    ])->name('restaurantportal.menus');
+
+    Route::get('/orders', [
+        \App\Http\Controllers\RestaurantPortal\OrderController::class, 'index'
+    ])->name('restaurantportal.orders');
+
+    Route::get('/restaurants', [
+        \App\Http\Controllers\RestaurantPortal\RestaurantController::class, 'index'
+    ])->name('restaurantportal.restaurants');
+
+    Route::get('/mentions', [
+        \App\Http\Controllers\RestaurantPortal\MentionController::class, 'index'
+    ])->name('restaurantportal.mentions');
+
+    Route::get('/tasks', [
+        \App\Http\Controllers\RestaurantPortal\TaskController::class, 'index'
+    ])->name('restaurantportal.tasks');
+});
