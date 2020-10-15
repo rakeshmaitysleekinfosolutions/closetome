@@ -8,7 +8,7 @@ use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\BusinessUserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManageStoreController;
-
+use App\Http\Controllers\FileManagerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,7 +99,7 @@ Route::post('/bus/manage-store/update', [
 Route::prefix('restaurantportal')->group(function() {
     Route::get('/', [
         \App\Http\Controllers\RestaurantPortal\DashboardController::class, 'index'
-    ])->name('restaurantportal.dashboard');
+    ])->name('dashboard');
 
     Route::get('/dashboard', [
         \App\Http\Controllers\RestaurantPortal\DashboardController::class, 'index'
@@ -107,25 +107,53 @@ Route::prefix('restaurantportal')->group(function() {
 
     Route::get('/clients', [
         \App\Http\Controllers\RestaurantPortal\ClientController::class, 'index'
-    ])->name('restaurantportal.clients');
+    ])->name('clients');
 
     Route::get('/menus', [
         \App\Http\Controllers\RestaurantPortal\MenuController::class, 'index'
-    ])->name('restaurantportal.menus');
+    ])->name('menus');
+
+    /** Dish Route */
+
+    Route::post('/dish/fetch', [
+        \App\Http\Controllers\RestaurantPortal\MenuController::class, 'fetchDish'
+    ])->name('dish.fetch');
+    Route::get('/dish/add', [
+        \App\Http\Controllers\RestaurantPortal\MenuController::class, 'create'
+    ])->name('dish.add');
+    Route::post('/dish/store', [
+        \App\Http\Controllers\RestaurantPortal\MenuController::class, 'store'
+    ])->name('dish.store');
+    Route::get('/dish/edit/{id}', [
+        \App\Http\Controllers\RestaurantPortal\MenuController::class, 'edit'
+    ])->name('dish.edit');
+    Route::post('/dish/update/{id}', [
+        \App\Http\Controllers\RestaurantPortal\MenuController::class, 'update'
+    ])->name('dish.update');
+
+    Route::post('/dish/delete/image/{id}', [
+        \App\Http\Controllers\RestaurantPortal\MenuController::class, 'deleteImage'
+    ])->name('dish.delete.image');
+
 
     Route::get('/orders', [
         \App\Http\Controllers\RestaurantPortal\OrderController::class, 'index'
-    ])->name('restaurantportal.orders');
+    ])->name('orders');
 
-    Route::get('/restaurants', [
+    Route::any('/restaurants', [
         \App\Http\Controllers\RestaurantPortal\RestaurantController::class, 'index'
-    ])->name('restaurantportal.restaurants');
+    ])->name('restaurants');
 
     Route::get('/mentions', [
         \App\Http\Controllers\RestaurantPortal\MentionController::class, 'index'
-    ])->name('restaurantportal.mentions');
+    ])->name('mentions');
 
     Route::get('/tasks', [
         \App\Http\Controllers\RestaurantPortal\TaskController::class, 'index'
-    ])->name('restaurantportal.tasks');
+    ])->name('tasks');
+
+    Route::get('/filemanager', [
+        \App\Http\Controllers\FileManagerController::class, 'index'
+    ]);
 });
+

@@ -75,7 +75,7 @@
                                                     {{trans('sentence.business.dashboard.label.artists')}}
                                                 </div>
                                                 <div class="circle-tile-number text-faded">
-                                                    
+                                                   0 
                                                 </div>
                                                 <a href="#" class="circle-tile-footer">{{trans('sentence.business.dashboard.link.moreInfo')}} <i class="fa fa-chevron-circle-right"></i></a>
                                             </div>

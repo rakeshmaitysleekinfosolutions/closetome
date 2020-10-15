@@ -39,6 +39,7 @@ class ComposerStaticInitb0a2fb324859b61ddd7239ef014872be
         'caf23243e9cb3afd48d0414815ebf07e' => __DIR__ . '/..' . '/brian2694/laravel-toastr/src/helper.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '9f394da3192a168c4633675768d80428' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/helpers.php',
+        '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -49,6 +50,10 @@ class ComposerStaticInitb0a2fb324859b61ddd7239ef014872be
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'Y' => 
+        array (
+            'Yajra\\DataTables\\' => 17,
         ),
         'X' => 
         array (
@@ -195,6 +200,10 @@ class ComposerStaticInitb0a2fb324859b61ddd7239ef014872be
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'Yajra\\DataTables\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -539,12 +548,22 @@ class ComposerStaticInitb0a2fb324859b61ddd7239ef014872be
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\Helper' => __DIR__ . '/../..' . '/app/Helpers/Helper.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\BaseController' => __DIR__ . '/../..' . '/app/Http/Controllers/BaseController.php',
         'App\\Http\\Controllers\\BusinessUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/BusinessUserController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\FileManagerController' => __DIR__ . '/../..' . '/app/Http/Controllers/FileManagerController.php',
+        'App\\Http\\Controllers\\ManageStoreController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManageStoreController.php',
         'App\\Http\\Controllers\\Pagecontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/Pagecontroller.php',
         'App\\Http\\Controllers\\RestaurantController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantController.php',
+        'App\\Http\\Controllers\\RestaurantPortal\\ClientController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/ClientController.php',
+        'App\\Http\\Controllers\\RestaurantPortal\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/DashboardController.php',
+        'App\\Http\\Controllers\\RestaurantPortal\\MentionController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/MentionController.php',
+        'App\\Http\\Controllers\\RestaurantPortal\\MenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/MenuController.php',
+        'App\\Http\\Controllers\\RestaurantPortal\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/OrderController.php',
+        'App\\Http\\Controllers\\RestaurantPortal\\RestaurantController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/RestaurantController.php',
+        'App\\Http\\Controllers\\RestaurantPortal\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/TaskController.php',
         'App\\Http\\Controllers\\Shopcontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/Shopcontroller.php',
         'App\\Http\\Controllers\\Usercontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/Usercontroller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -557,7 +576,15 @@ class ComposerStaticInitb0a2fb324859b61ddd7239ef014872be
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Library\\Image' => __DIR__ . '/../..' . '/app/Library/Image.php',
+        'App\\Models\\BusinessType' => __DIR__ . '/../..' . '/app/Models/BusinessType.php',
+        'App\\Models\\BusinessTypeChildCategory' => __DIR__ . '/../..' . '/app/Models/BusinessTypeChildCategory.php',
+        'App\\Models\\BusinessTypeParentCategory' => __DIR__ . '/../..' . '/app/Models/BusinessTypeParentCategory.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
+        'App\\Models\\Dish' => __DIR__ . '/../..' . '/app/Models/Dish.php',
+        'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
+        'App\\Models\\Restaurant' => __DIR__ . '/../..' . '/app/Models/Restaurant.php',
+        'App\\Models\\RestaurantPortal\\ClientModel' => __DIR__ . '/../..' . '/app/Models/RestaurantPortal/ClientModel.php',
         'App\\Models\\Shopcategory' => __DIR__ . '/../..' . '/app/Models/Shopcategory.php',
         'App\\Models\\Subcategory' => __DIR__ . '/../..' . '/app/Models/Subcategory.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
@@ -5122,6 +5149,21 @@ class ComposerStaticInitb0a2fb324859b61ddd7239ef014872be
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
+        'Yajra\\DataTables\\ApiResourceDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/ApiResourceDataTable.php',
+        'Yajra\\DataTables\\CollectionDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/CollectionDataTable.php',
+        'Yajra\\DataTables\\Contracts\\DataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Contracts/DataTable.php',
+        'Yajra\\DataTables\\DataTableAbstract' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTableAbstract.php',
+        'Yajra\\DataTables\\DataTables' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTables.php',
+        'Yajra\\DataTables\\DataTablesServiceProvider' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTablesServiceProvider.php',
+        'Yajra\\DataTables\\EloquentDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/EloquentDataTable.php',
+        'Yajra\\DataTables\\Exceptions\\Exception' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Exceptions/Exception.php',
+        'Yajra\\DataTables\\Facades\\DataTables' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Facades/DataTables.php',
+        'Yajra\\DataTables\\Processors\\DataProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Processors/DataProcessor.php',
+        'Yajra\\DataTables\\Processors\\RowProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Processors/RowProcessor.php',
+        'Yajra\\DataTables\\QueryDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/QueryDataTable.php',
+        'Yajra\\DataTables\\Utilities\\Config' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Config.php',
+        'Yajra\\DataTables\\Utilities\\Helper' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Helper.php',
+        'Yajra\\DataTables\\Utilities\\Request' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Request.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

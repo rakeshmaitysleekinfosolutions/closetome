@@ -27,7 +27,7 @@
                         <div class="enter-conta">
                             <form action="{{route('bus/editproductsubmit')}}" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="vendor_product_id" value="{{ $product_detail->vendor_product_id}}">
-                            <a href="{{route('bus/products') }}" class="btn btn-primary">{{ trans('sentence.business.product.label.back') }}</a>
+                            <a href="{{route('bus/products') }}" class="btn takfua-back text-white">{{ trans('sentence.business.product.label.back') }}</a>
                             <h3 class="mt-2">{{ trans('sentence.business.product.label.editProduct') }}</h3>
                             <div class="row mt-1">
                                 <div class="col-md-12">
@@ -146,7 +146,7 @@
                                 </div>
                               </div> 
                               @csrf
-                              <button class="btn btn-primary" type="submit">{{ trans('sentence.business.product.button.update') }}</button> 
+                              <button class="btn takfua-back text-white" type="submit">{{ trans('sentence.business.product.button.update') }}</button> 
                             </form>                                                                      
                         </div>
                     </div>

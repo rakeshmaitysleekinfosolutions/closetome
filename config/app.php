@@ -56,6 +56,7 @@ return [
 
     'asset_url' => env('ASSET_URL', 'http://localhost/workspace/closetome/public'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -175,6 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
     ],
 
@@ -228,6 +230,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Helper' => App\Helpers\Helper::class,
+        'Library' => App\Helpers\Library::class,
 
     ],
 

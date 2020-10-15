@@ -26,7 +26,7 @@
                         
                         <div class="enter-conta">
                             <form action="{{route('bus/editproductsubmit')}}" method="post" enctype="multipart/form-data">
-                            <a href="{{route('bus/products') }}" class="btn btn-primary">{{ trans('sentence.business.product.label.back') }}</a>
+                            <a href="{{route('bus/products') }}" class="btn takfua-back text-white">{{ trans('sentence.business.product.label.back') }}</a>
                             <h3 class="mt-2">{{ trans('sentence.business.product.label.editProduct') }}</h3>
                             <div class="row mt-1">
                                 <div class="col-md-12">
@@ -136,7 +136,7 @@
                                             <div class="card bg-white" style="margin-top: 0px !important;padding:0">
                                                 <img class="card-img-top" src="{{ URL::asset('assets/images/pro/01.png') }}" alt="Card image cap">
                                                 {{-- <div class="card-body">
-                                                  <center><a href="#" class="btn btn-danger">Remove</a></center>
+                                                  <center><a href="#" class="btn btn-danger text-white">Remove</a></center>
                                                 </div> --}}
                                               </div>                                            
                                         </div>                                            
@@ -145,7 +145,7 @@
                                 </div>
                               </div> 
                               @csrf
-                              <button class="btn btn-primary" type="submit">{{ trans('sentence.business.product.button.update') }}</button>
+                              <button class="btn takfua-back text-white" type="submit">{{ trans('sentence.business.product.button.update') }}</button>
                             </form>                                                                      
                         </div>
                     </div>

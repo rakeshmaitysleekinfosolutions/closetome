@@ -15,9 +15,8 @@ use App\Models\VendorProduct;
 use App\Models\VendorProductColor;
 use App\Models\VendorProductSize;
 use App\Models\VendorProductImage;
-use Illuminate\Support\Facades\Mail;
+use App\Helpers\Helper;
 use File;
-use Illuminate\Support\Str;
 
 class BusinessUserController extends Controller
 {
@@ -39,6 +38,7 @@ class BusinessUserController extends Controller
 
     public function __construct(Vendor $vendor, BusinessType $businessType, BusinessTypeParentCategory $businessTypeParentCategory) {
         $this->vendor = $vendor;
+
         $this->businessType = $businessType;
         $this->businessTypeParentCategory = $businessTypeParentCategory;
     }
@@ -59,6 +59,7 @@ class BusinessUserController extends Controller
         if (session()->has('businessUserId')) {
             $this->businessUserId = session()->get('businessUserId');
         }
+        //dd(session()->get('businessuser_info'));
         if($this->businessUserId) {
             $this->businessUserInfo = $this->vendor->find($this->businessUserId);
         }
@@ -166,7 +167,7 @@ class BusinessUserController extends Controller
         $this->vendor->phone                    = ($request->has('phone')) ? $request->get('phone') : $this->vendor->phone;
         $this->vendor->email                    = ($request->has('email')) ? bcrypt($request->get('email')) : $this->vendor->email;
         $this->vendor->raw_email                = ($request->has('email')) ? $request->get('email') : $this->vendor->raw_email;
-        $this->vendor->business_type            = ($request->has('business_type')) ? BusinessType::find($request->get('business_type'))->business_type_name : $this->vendor->business_type;
+        $this->vendor->business_type            = ($request->has('business_type')) ? BusinessType::find($request->post('business_type'))->business_type_name : $this->vendor->business_type;
         $this->vendor->category                 = ($request->has('category')) ? $request->get('category') : $this->vendor->category;
         $this->vendor->subcategory              = ($request->has('subcategory')) ? $request->get('subcategory') : $this->vendor->subcategory;
         $this->vendor->country                  = ($request->has('country')) ? $request->get('country') : $this->vendor->country;
@@ -194,20 +195,6 @@ class BusinessUserController extends Controller
         session()->flash('message', 'La tienda se ha modificado correctamente');
         return redirect('/bus/manage-store');
     }
-
-    public function forgotten(Request $request) {
-        $this->validate($request, [
-            'email' => 'required|email|unique_email:vendors|real_email',
-        ]);
-        $email = $request->get('email');
-        $this->vendor = $this->vendor->where('email', $email)->first();
-        $this->vendor->code = Str::random(16);
-        $this->vendor->save;
-        Mail::send('businessportal.emails.forgotten', ['user' => $this->vendor], function ($message) use ($email): void {
-            $message->to($email, $this->vendor->business_name)->subject('Confirm email address change');
-        });
-        return redirect('/bus/signin')->with('success_msg', 'A link has been sent to the email address provided to confirm the change.');
-    }
     public function signup(){
         $extra_style = 'assets/css/bus_signup_style.css';
         $shop_categories = Shopcategory::orderBy('spanish_translation')->get();
@@ -222,6 +209,7 @@ class BusinessUserController extends Controller
     }
 
     public function signup_submit(Request $request){
+        $this->shopIcon = asset('assets/images/users/user.png');
         $request->validate([
             'firstname' => 'required|string',
             'lastname'  => 'required|string',
@@ -269,26 +257,36 @@ class BusinessUserController extends Controller
                 'country'   => $request->input('country'),
                 'city'      => $request->input('city'),
                 'postal_code'  => $request->input('postal_code'),
-                'business_type' => BusinessType::find($request->get('business_type'))->business_type_name,
+                'business_type' => BusinessType::find($request->post('business_type'))->business_type_name,
                 'category' => $request->input('category'),
                 'subcategory' => $request->input('subcategory'),
                 'business_name' =>$request->input('businessname')
             ]);
             $new_vendor->save();
-            $id= $new_vendor->id;
+
+//            if($new_vendor->business_type == 'Restaurants') {
+//                $this->shopIcon = asset('assets/images/users/user.png');
+//            } else {
+//                $this->shopIcon = asset('assets/images/vendors/'.$new_vendor->shop_icon);
+//            }
+
             $session_data = [
-                'name' => $request->input('firstname')." ".$request->input('lastname'),
+                'name'          => $request->input('firstname')." ".$request->input('lastname'),
                 'business_name' => $new_vendor->business_name,
-                'image'=> ($new_vendor->shop_icon) ? asset('assets/images/vendors/'.$new_vendor->shop_icon) : asset('assets/images/users/user.png'),
-                'user_id'=>$new_vendor->id
+                'image'         => $this->shopIcon,
+                'user_id'       => $new_vendor->vendor_id,
+                'companyType'   => $new_vendor->business_type
             ];
             $request->session()->put('businessuser_info',$session_data);
 
             // Code added by rakesh
-            if(isset($new_vendor->id)) {
-                $request->session()->put('businessUserId', $new_vendor->id);
+            if(isset($new_vendor->vendor_id)) {
+                session()->put('businessUserId', $new_vendor->vendor_id);
             }
 
+            if($new_vendor->business_type == 'Restaurants') {
+                return redirect()->route('restaurantportal.dashboard');
+            }
             return redirect('bus/dashboard');
         }else{
             return redirect('/bus/signup')->with('email_msg','Email Already Exists! Please try another');
@@ -326,9 +324,11 @@ class BusinessUserController extends Controller
     }
     public function manageOrders(Request $request){
      if ($request->session()->has('businessuser_info')) {
+            //dd(session()->get('businessuser_info'));
             $user_info = $request->session()->get('businessuser_info','default');
             $id = $user_info['user_id'];
             $vendor = Vendor::where('vendor_id',$id)->take(1)->first();
+            //dd($vendor);
             return view('business.busi_manageorders')->with(['vendor'=>$vendor]);
         }
         else{
@@ -350,19 +350,34 @@ class BusinessUserController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $u = new Vendor;
+        $this->shopIcon = asset('assets/images/users/user.png');
         if(count($u->checkLogin($email,$password))==1){
             foreach($u->checkLogin($email,$password) as $user){
+
+                if($user->business_type == 'Restaurants') {
+
+                    $this->shopIcon = Helper::resize($user->shop_icon,100,100);
+                    //dd($this->shopIcon);
+                } else {
+
+                    $this->shopIcon = asset('assets/images/vendors/'.$user->shop_icon);
+                    //dd($this->shopIcon);
+                }
                 $session_data = [
-                    'name' => $user->business_name,
-                    'image'=> ($user->shop_icon) ? asset('assets/images/vendors/'.$user->shop_icon) : asset('assets/images/users/user.png'),
-                    'user_id'=>$user->vendor_id,
+                    'name'          => $user->business_name,
+                    'image'         => $this->shopIcon,
+                    'user_id'       => $user->vendor_id,
                     'business_name' => $user->business_name,
+                    'companyType'   => $user->business_type
                 ];
                // dd($session_data);
                 $request->session()->put('businessuser_info',$session_data);
                 // Code added by rakesh
                 if(isset($user->vendor_id)) {
                     $request->session()->put('businessUserId', $user->vendor_id);
+                }
+                if($user->business_type == 'Restaurants') {
+                    return redirect()->route('restaurantportal.dashboard');
                 }
                 return redirect('bus/dashboard');
             }

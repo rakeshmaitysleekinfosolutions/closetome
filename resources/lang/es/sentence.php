@@ -43,7 +43,7 @@ return [
         'closeToMeText'             => 'Cerca de Mi Negocios Locales es el lugar digital para que todas las tiendas y restaurantes expandan sus negocios en el mundo digital.',
         'createYourBusiness'        => 'Crea tu negocio',
         'signInForBusiness'         => 'Iniciar sesión para empresas',
-        'howToCreateYourBusiness'   => 'Como crear tu negocio should be created',
+        'howToCreateYourBusiness'   => 'Como crear tu negocio',
         'pricing'                   => 'Precios',
         'categories'                => 'Categorias',
         'clothes'                   => 'Ropa',
@@ -90,17 +90,6 @@ return [
         'loginButton'               => 'Iniciar sesión',
     ],
     'business' => [
-        'sidebar' => [
-            'label' => [
-                'dashboard' => 'Dashboard',
-                'clients'   => 'Clients',
-                'orders'    => 'Orders',
-                'products'  => 'Products',
-                'store'     => 'Store',
-            ],
-            'button' => [],
-            'link' => []
-        ],
         'dashboard' => [
                 'label' => [
                     'users'     => 'Clientes',
@@ -117,6 +106,14 @@ return [
                 'moreInfo'   => 'Más Info',
                 ]
             ],
+        'order' => [
+          'label'=>[
+            'manageOrders' => 'Administrar Pedidos',
+            'clientName' => 'Nombre Cliente',
+            'purchasedProduct' => 'Producto Comprado',
+            'totalOrder' => 'Total Orden'
+          ]
+        ],                        
         'customer'  => [
                 'label' => [
                   'manageCustomer'=> 'Mis Clientes',
@@ -137,12 +134,12 @@ return [
                 ],
         'product'   => [
                     'label' => [
-                      'productName'                 => 'Nombre del Producto',
-                      'productPrice'                => 'Precio',
-                      'productQuantity'             => 'Cantidad',
+                      'productName'                 => 'nombre del producto',
+                      'productPrice'                => 'Precio del producto',
+                      'productQuantity'             => 'La cantidad de producto',
                       'action'                      => 'Acción',
                       'back'                        => 'atrás',
-                      'addProduct'                  => 'Administrar Productos',
+                      'addProduct'                  => 'Agregar producto',
                       'productDetails'              => 'Detalles de producto',
                       'category'                    => 'Categoría',
                       'selectOne'                   => 'Seleccione uno',
@@ -177,10 +174,10 @@ return [
                 'subCategory'             => 'Sub Categoria',
                 'businessDescription'     => 'Descripción de Negocio',
                 'shopImage'               => 'Imagen de la tienda',
-                'uploadNew'               => 'Subir Nueva Imagen',
+                'uploadNew'               => 'Subir nueva',
                 'coverImage'              => 'Imagen de portada del negocio',
-                'shopIcon'                => 'Icono del Negocio',
-                'preferableSize'          => 'El tamaño de la imagen tiene que ser  1200 x 398',
+                'shopIcon'                => 'Icono de tienda',
+                'preferableSize'          => 'El tamaño de la imagen tiene que ser 1200 x 398',
                 'postCode'                => 'Código postal',
                 'businessType'            => 'Tipo de negocio',
                 'businessDetails'         => 'Detalles comerciales',
@@ -203,41 +200,10 @@ return [
                 'selectOption'              => 'Seleccionar opción',
             ],
             'button' => [
-                'updateStore'             => 'Guardar Cambios',
+                'updateStore'             => 'Actualizar tienda',
             ],
                 'link' => []
             ],
-    ],
-    'restaurant' => [
-        'sidebar' => [
-            'label' => [
-                'dashboard'         => 'Dashboard',
-                'clients'           => 'Clients',
-                'adminOrders'       => 'Admin Orders',
-                'adminMenu'         => 'Admin Menu',
-                'adminRestaurant'   => 'Admin Restaurant',
-                'mentions'          => 'Mentions',
-                'tasks'             => 'Tasks',
-            ],
-            'button' => [],
-            'link' => []
-        ],
-        'dashboard' => [
-            'label' => [
-                'users'     => 'Clients',
-                'revenue'   => 'Revenue',
-                'artists'   => 'Artists',
-                'tasks'     => 'Tasks',
-                'orders'    => 'Orders',
-                'mentions'  => 'Mentions',
-            ],
-            'button' => [
-
-            ],
-            'link' => [
-                'moreInfo'   => 'More Info',
-            ]
-        ],
-    ],
+    ]
 
 ];

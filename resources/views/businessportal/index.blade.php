@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+<!--                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="">{{ trans('sentence.business.store.label.shopImage') }} &nbsp;<span class="text-danger">({{ trans('sentence.business.store.label.preferableSize') }} : 1200 X 398)</span></label>
                                     <img width="100%" height="500px;" src="{{ isset($businessUserInfo['shop_image']) ? URL::asset('assets/images/vendors/'.$businessUserInfo['shop_image']) : URL::asset('assets/images/placeholder.png') }}" alt=""/>
@@ -168,11 +168,14 @@
                                     </div>
                                 </div>
                             </div>
-
+ -->
                             <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        
                                 <div class="form-group">
                                     <label for="">{{ trans('sentence.business.store.label.coverImage') }} &nbsp;<span class="text-danger">({{ trans('sentence.business.store.label.preferableSize') }} : 1200 X 398)</span></label>
-                                    <img width="100%" height="500px;" src="{{ isset($businessUserInfo['coverimage']) ? URL::asset('assets/images/vendors/'.$businessUserInfo['coverimage']) : URL::asset('assets/images/placeholder.png') }}" src="" alt=""/>
+                                    <img width="100%" height="250px;" src="{{ isset($businessUserInfo['coverimage']) ? URL::asset('assets/images/vendors/'.$businessUserInfo['coverimage']) : URL::asset('assets/images/placeholder.png') }}" src="" alt=""/>
                                     <br><br/>
                                     <div class="row">
                                         <div class="col-md-4">
@@ -181,17 +184,23 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
+
+                                    </div>
+                                    <div class="col-md-6">
+
                                 <div class="form-group">
-                                    <label for="">{{ trans('sentence.business.store.label.shopIcon') }} &nbsp;<span class="text-danger">({{ trans('sentence.business.store.label.preferableSize') }} : 512 X 512)</span></label>
-                                    <img width="100%" height="500px;" src="{{ isset($businessUserInfo['shop_icon']) ? asset('assets/images/vendors/'.$businessUserInfo['shop_icon']) : URL::asset('assets/images/placeholder.png') }}" src="" alt=""/>
+                                    <label for="">{{ trans('sentence.business.store.label.shopIcon') }} &nbsp;<span class="text-danger">({{ trans('sentence.business.store.label.preferableSize') }} : 512 X 512)</span></label><br/>
+                                    <img width="250px" height="250px;" src="{{ isset($businessUserInfo['shop_icon']) ? asset('assets/images/vendors/'.$businessUserInfo['shop_icon']) : URL::asset('assets/images/placeholder.png') }}" src="" alt=""/>
                                     <br><br/>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="">{{ trans('sentence.business.store.label.uploadNew') }}</label>
                                             <input type="file" name="shop_icon" class="form-control" accept="image/*">
                                         </div>
+                                    </div>
+                                </div>
+
+                                        
                                     </div>
                                 </div>
                             </div>

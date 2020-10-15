@@ -40,7 +40,7 @@
                               <li><a href="{{ route('bus/signup') }}"><i class="fas fa-angle-double-right"></i>{{ trans('sentence.footer.createYourBusiness') }}</a></li>
                               <li><a href="{{ route('bus/signin') }}"><i class="fas fa-angle-double-right"></i>{{ trans('sentence.footer.signInForBusiness') }}</a></li>
                             <li><a href="search.html"><i class="fas fa-angle-double-right"></i>
-                                {{ trans('sentence.footer.howToCreateYourBusiness') }} <div style="margin-left: 22px;">{{ trans('sentence.footer.portal') }}</div>
+                                {{ trans('sentence.footer.howToCreateYourBusiness') }}
                                 </a>
                             </li>
 
@@ -75,16 +75,20 @@
                         <h2 class="footer-title">{{ trans('sentence.footer.contactUs') }}</h2>
                         <div class="footer-contact-info">
                             <p>
+                                <a href="tel:+34 673 74 74 46" class="text-white">
                                 <i class="fas fa-phone-alt"></i>
-                                +1 34 673 74 74 46
+                                +34 673 74 74 46
+                                </a>
                             </p>
                             <p>
                                 <i class="fa fa-paper-plane"></i>
                                 <a href="contactus.php" class="text-white">{{ trans('sentence.footer.contactUs') }}</a>
                             </p>
                             <p class="mb-0">
+                                <a href="mailto: info@cercademi.me" class="text-white">
                                 <i class="fas fa-envelope"></i>
                                 info@cercademi.me
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -150,4 +154,4 @@
 <script src="{{ URL::asset('assets/js/myscript.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/js/jquery.validate.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/js/additional-methods.js')}}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/app.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/app.js')}}"></script>

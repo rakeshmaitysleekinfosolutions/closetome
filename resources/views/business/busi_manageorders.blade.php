@@ -28,7 +28,7 @@
                                 <div class="row bg-header border-bottom">
                                     <div class="col-md-12 col-sm-12">
                                         <div class="navbar-nav my-4 margin-25">
-                                            <div class="h3">Manage Orders</div>
+                                            <div class="h3">{{ trans('sentence.business.order.label.manageOrders') }}</div>
                                             
                                         </div>
                                     </div>
@@ -41,9 +41,9 @@
                                                 <thead>
                                                     <tr class="takfua-back">
                                                         <th class="text-center">#</th>
-                                                        <th>Name</th>
-                                                        <th>Product</th>
-                                                        <th>Order at</th>
+                                                        <th>{{ trans('sentence.business.order.label.clientName') }}</th>
+                                                        <th>{{ trans('sentence.business.order.label.purchasedProduct') }}</th>
+                                                        <th>{{ trans('sentence.business.order.label.totalOrder') }}</th>
                                                         <th class="text-right">Price</th>
                                                     </tr>
                                                 </thead>

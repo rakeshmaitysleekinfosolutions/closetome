@@ -22,6 +22,7 @@ class ClientController extends Controller
         if (!session()->get('businessuser_info')) {
             return redirect('bus/signin');
         }
+
         return view('restaurantportal.clients.index');
     }
 }

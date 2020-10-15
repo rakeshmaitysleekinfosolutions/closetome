@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	<script src="{{URL::asset('leaflet/leaflet-src.js')}}"></script>
 	<link rel="stylesheet" href="{{URL::asset('leaflet/leaflet.css')}}" />
 
@@ -179,7 +180,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6" id="SubCategoryOption">
 							<div class="form-group">
 								<label for="">{{trans('sentence.signup.subcategory')}}<span class="text-danger">*</span></label>
 								<select class=" form-control" name="subcategory">

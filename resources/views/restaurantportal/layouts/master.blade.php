@@ -4,13 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Business Portal</title>
 
        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/businessportal.css') }}"> --}}
         <link rel="icon" href="{{ URL::asset('assets/images/ui/logo.png') }}">
 
-        <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
         <!-- Fontawesome CSS -->
         <link rel="stylesheet" href="{{ URL::asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('assets/plugins/fontawesome/css/all.min.css') }}">
@@ -22,8 +23,10 @@
         <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-datetimepicker.min.css') }}">
         <!-- Select2 CSS -->
         <link rel="stylesheet" href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('assets/plugins/datatables/dataTables.bootstrap4.css') }}">
         <link href="{{ URL::asset('assets/css/import.css') }}" rel="stylesheet" type="text/css"/>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+
     </head>
     <body class="bg-default-light">
         <div class="white shadow">
@@ -48,37 +51,10 @@
             </div>
         </div>
         <!-- /Footer -->
-        @include('restaurantportal.inc.footer');
-        <script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
-        <!-- Bootstrap Core JS -->
-        <script src="{{ URL::asset('assets/js/popper.min.js')}}"></script>
-        <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-        <!-- Slick JS -->
-        <script src="{{ URL::asset('assets/js/slick.js')}}"></script>
-        <!-- Custom JS -->
-        <script src="{{ URL::asset('assets/js/script.js')}}"></script>
-        <!-- Select2 JS -->
-        <script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-        <!-- Datetimepicker JS -->
-        <script src="{{ URL::asset('assets/js/moment.min.js')}}"></script>
-        <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js')}}"></script>
-        <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-        <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Sticky Sidebar JS -->
-        <script src="{{ URL::asset('assets/plugins/theia-sticky-sidebar/ResizeSensor.js')}}"></script>
-        <script src="{{ URL::asset('assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}"></script>
-        <!-- Custom JS -->
-        <script src="{{ URL::asset('assets/js/script.js')}}"></script>
-        <script src="{{ URL::asset('assets/js/import.js')}}" type="text/javascript"></script>
-        <script src="{{ URL::asset('assets/js/main.js')}}" type="text/javascript"></script>
-        <script src="{{ URL::asset('assets/js/myscript.js')}}" type="text/javascript"></script>
-        <script src="{{ URL::asset('assets/js/jquery.validate.js')}}" type="text/javascript"></script>
-        <script src="{{ URL::asset('assets/js/additional-methods.js')}}" type="text/javascript"></script>
-        <script src="{{ URL::asset('assets/plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
-        <script src="{{ URL::asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}" type="text/javascript"></script>
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/businessportal.js') }}"></script> --}}
-        <script type="text/javascript" src="{{ URL::asset('assets/js/app.js')}}"></script>
+        @include('restaurantportal.inc.footer')
+
+        <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        @stack('scripts')
     </body>
 </html>

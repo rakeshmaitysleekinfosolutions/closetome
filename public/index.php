@@ -3,6 +3,9 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+define('DIR_IMAGE', str_replace('\\', '/', realpath(dirname(__FILE__) . '/')) . '/uploads/');
+define('DIR_ASSETS_IMAGE', str_replace('\\', '/', realpath(dirname(__FILE__) . '/')) . '/public/assets/images/');
+
 define('LARAVEL_START', microtime(true));
 
 /*

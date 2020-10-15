@@ -1,38 +1,30 @@
 @extends('restaurantportal.layouts.master')
 @section('content')
-    <div class="col-md-10 col-sm-10">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 bg-white main-shadwo">
-                <div class="row bg-header border-bottom">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="navbar-nav my-4 margin-25">
-                            <div class="h3">{{ trans('sentence.Manage_products') }}</div>
-                        </div>
-                    </div>
+    <div class="col-md-10 col-sm-12 bg-white main-shadwo">
+        <div class="row bg-header border-bottom">
+            <div class="col-md-12 col-sm-12">
+                <div class="navbar-nav my-4 margin-25">
+                    <div class="h3">{{ trans('sentence.restaurant.customer.label.title') }}</div>
                 </div>
+            </div>
+        </div>
 
-                <div class="enter-conta">
-                    <div class="row justify-content-center">
-                        <div class="table-responsive">
-                            <a href="{{ route('bus/addproduct')}}" class="btn takfua-back text-white btn-just-icon btn-sm">{{ ucfirst(trans('sentence.business.product.label.addProduct')) }}</a>
-                            <table class="table table-striped mt-2">
-                                <thead>
-
-                                <tr class="takfua-back">
-                                    <th class="text-center">#</th>
-                                    {{-- <th>Product Image</th> --}}
-                                    <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.productName')) }}</th>
-                                    <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.productPrice')) }}</th>
-                                    <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.productQuantity')) }}</th>
-                                    <th class="text-center">{{ ucfirst(trans('sentence.business.product.label.action')) }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+        <div class="enter-conta">
+            <div class="row justify-content-center">
+                <div class="table-responsive">
+                    <table class="table table-striped mt-2" id="datatables">
+                        <thead>
+                        <tr class="takfua-back">
+                            <th class="text-center">#</th>
+                            <th class="text-center">{{ ucfirst(trans('sentence.restaurant.order.label.number')) }}</th>
+                            <th class="text-center">{{ ucfirst(trans('sentence.restaurant.customer.label.name')) }}</th>
+                            <th class="text-center">{{ ucfirst(trans('sentence.restaurant.order.label.type')) }}</th>
+                            <th class="text-center">{{ ucfirst(trans('sentence.restaurant.order.label.date')) }}</th>
+                            <th class="text-center">{{ ucfirst(trans('sentence.restaurant.order.label.amount')) }}</th>
+                            <th class="text-center">{{ ucfirst(trans('sentence.restaurant.order.label.total')) }}</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -41,8 +33,20 @@
 <script>
     var myLabel                 = myLabel || {};
     myLabel.token               = '{{Session::token()}}'
-    myLabel.parentCategory      = '{{route('fetch-categories')}}';
-    myLabel.childCategory       = '{{route('fetch-subcategories')}}';
-    myLabel.selectOption       = '{{ trans('sentence.restaurant.store.label.selectOption') }}';
-
+</script>
+<script>
+    $(function() {
+        $('#datatables').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'type', name: 'type' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'updated_at', name: 'updated_at' }
+            ]
+        });
+    });
 </script>
