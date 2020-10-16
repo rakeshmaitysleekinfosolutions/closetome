@@ -15,17 +15,17 @@
                             <div class="social-icon">
                                 <ul>
                                     <li>
-                                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
+                                        <a href="https://www.facebook.com/Cerca-de-Mi-101394868383256" target="_blank"><i class="fab fa-facebook-f"></i> </a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
+                                        <a href="https://twitter.com/mi_cerca" target="_blank"><i class="fab fa-twitter"></i> </a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                        <a href="https://www.instagram.com/cerca_de_mi_es/" target="_blank"><i class="fab fa-instagram"></i></a>
                                     </li>
-                                    <li>
-                                        <a href="#" target="_blank"><i class="fab fa-youtube-square"></i> </a>
-                                    </li>
+{{--                                    <li>--}}
+{{--                                        <a href="#" target="_blank"><i class="fab fa-youtube-square"></i> </a>--}}
+{{--                                    </li>--}}
                                 </ul>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                         <div class="footer-contact-info">
                             <p>
                                 <i class="fas fa-phone-alt"></i>
-                                +1 34 673 74 74 46
+                                +34 673 74 74 46
                             </p>
                             <p>
                                 <i class="fa fa-paper-plane"></i>

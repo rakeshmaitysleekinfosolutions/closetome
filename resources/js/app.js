@@ -1,21 +1,60 @@
 //global.$ = global.jQuery = require('jquery');
 import $ from 'jquery';
-require('./additional-methods');
-require('./jquery.validate');
-require('../../resources/js/plugins/datatables/datatables');
-// require('../../resources/js/sweetalert/sweetalert');
-require('toastr');
 window.$ = window.jQuery = $;
 window.Popper = require('popper.js');
-require('./bootstrap');
+/**
+ * @desc Import Additional JS
+ */
+require('./bootstrap.min');
+require('./slick');
+require('./additional-methods');
+require('./jquery.validate');
+require('./import');
+require('./script');
+require('toastr');
+
+require('../../resources/js/plugins/datatables/datatables');
+require('../../resources/js/plugins/theia-sticky-sidebar/ResizeSensor');
+require('../../resources/js/plugins/theia-sticky-sidebar/theia-sticky-sidebar');
 
 import 'jquery-ui/ui/widgets/datepicker.js';
+// require('../../resources/js/sweetalert/sweetalert');
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+$( "#showr" ).click(function() {
+    $(".div").first().show("fast", function showNext() {
+        $(this).next(".div").show("fast", showNext);
+    });
+});
 
+$( "#hidr" ).click(function() {
+    $(".div").hide(1000);
+});
+
+function toggleCountry(country_id){
+    $(`#${country_id}`).slideToggle();
+}
+$(document).ready(function(){
+    $("select").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue){
+                $(".box").not("." + optionValue).hide();
+                $("." + optionValue).show();
+            } else{
+                $(".box").hide();
+            }
+        });
+    }).change();
+});
+/**
+ * @desc Registration Form Validation
+ * @type {jQuery|HTMLElement}
+ */
 var $frm = $("#frm"),
     $registrationFrm = $('#registrationFrm'),
     validate = ($.fn.validate !== undefined);
@@ -248,6 +287,10 @@ if ($registrationFrm.length > 0 && validate) {
         }
     });
 }
+
+/**
+ * Onchange Category and Sub-category
+ */
 $('#SubCategoryOption').hide();
 $('select[name="business_type').on('change', function() {
     var businessType = $('select[name="business_type"]').find(":selected").val();
@@ -296,7 +339,6 @@ $('select[name="business_type').on('change', function() {
         }
     });
 });
-
 $('select[name="business_type"]').trigger('change');
 
 // businessTypeParentCategory
@@ -338,9 +380,6 @@ $('select[name="category').on('change', function() {
         }
     });
 });
-
-
-
 setTimeout(function () {
     $('select[name="category"]').trigger('change');
 },300)
@@ -408,6 +447,9 @@ $(document).on('click', 'a[data-toggle=\'image\']', function(e) {
             $element.popover('dispose');
         });
     });
+/**
+ * Add More Image Functionality
+ */
 $(document).on('click', '.addImage', function (e) {
     var html = '';
     html = '<tr id="image-row' + myLabel.imageRow + '">';
@@ -419,6 +461,9 @@ $(document).on('click', '.addImage', function (e) {
     $('#images tbody').append(html);
     myLabel.imageRow++;
 });
+/**
+ * @desc Delete Image from add more
+ */
 $(document).on('click', '.delete', function(e) {
     var row         = $(this).attr('data-row');
     var id          = $(this).attr('data-id');

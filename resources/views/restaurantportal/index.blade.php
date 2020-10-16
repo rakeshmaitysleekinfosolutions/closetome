@@ -15,7 +15,7 @@
                                     </a>
                                     <div class="circle-tile-content dark-blue">
                                         <div class="circle-tile-description text-faded">
-                                            {{trans('sentence.restaurant.dashboard.label.users')}}
+                                            {{trans('sentence.restaurant.dashboard.label.clients')}}
                                         </div>
                                         <div class="circle-tile-number text-faded">
                                             0
@@ -108,7 +108,7 @@
                                     </a>
                                     <div class="circle-tile-content purple">
                                         <div class="circle-tile-description text-faded">
-                                            {{trans('sentence.restaurant.dashboard.label.mentions')}}
+                                            {{trans('sentence.restaurant.dashboard.label.comments')}}
                                         </div>
                                         <div class="circle-tile-number text-faded">
                                             0

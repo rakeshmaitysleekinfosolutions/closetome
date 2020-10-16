@@ -12,10 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/script.js', 'public/js')
-    .js('resources/js/myscript.js', 'public/js')
-    .js('resources/js/slick.js', 'public/js')
-    .js('resources/js/import.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
-    ]).copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts');
+    ]).copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts')
+     .copy('node_modules/material-icons/css/material-icons.min.css', 'public/css/material-icons.min.css'); // add this

@@ -217,97 +217,108 @@ return [
     ],
     'restaurant' => [
         'sidebar' => [
-        'label' => [
-            'dashboard'         => 'Dashboard',
-            'clients'           => 'Clients',
-            'adminOrders'       => 'Admin Orders',
-            'adminMenu'         => 'Admin Menu',
-            'adminRestaurant'   => 'Admin Restaurant',
-            'mentions'          => 'Mentions',
-            'tasks'             => 'Tasks',
+            'label' => [
+                'dashboard'    => 'Dashboard',
+                'tables'       => 'Tables',
+                'clients'      => 'Clients',
+                'orders'       => 'Manage Orders',
+                'reservations' => 'Manage Reservations',
+                'menus'        => 'Manage Menu',
+                'restaurants'  => 'Restaurant Information',
+                'comments'     => 'Comments',
+                'tasks'        => 'Tasks',
+            ],
+            'button' => [],
+            'link' => []
         ],
-        'button' => [],
-        'link' => []
-    ],
         'dashboard' => [
               'label' => [
-                'users'     => 'Clients',
-                'revenue'   => 'Revenue',
-                'artists'   => 'Artists',
-                'tasks'     => 'Tasks',
-                'orders'    => 'Orders',
-                'mentions'  => 'Mentions',
+                    'clients'   => 'Clients',
+                    'revenue'   => 'Revenue',
+                    'artists'   => 'Artists',
+                    'tasks'     => 'Tasks',
+                    'orders'    => 'Orders',
+                    'comments'  => 'Comments',
               ],
               'button' => [],
               'link' => [
                   'moreInfo'   => 'More Info',
               ]
-            ],
+        ],
         'customer' => [
-      'label' => [
-        'name'   => 'Client Name',
-        'title'  => 'My Clients',
-      ],
-      'button' => [],
-      'link' => []
-    ],
+            'columns' => [
+                'no'        => 'N',
+                'name'      => 'Nombre Cliente',
+                'title'     => 'Clients',
+                'item'      => 'Producto Comprado',
+                'orders'    => 'Total Orden',
+                'date'      => 'Fecha de Orden',
+                'status'    => 'Estado de Orden',
+            ],
+            'button' => [],
+            'link' => []
+        ],
         'order' => [
-      'label' => [
-        'number'   => 'Order Number',
-        'type'     => 'Order Type',
-        'date'     => 'Order Date',
-        'amount'   => 'Amount',
-        'total'    => 'Total',
-      ],
-      'button' => [],
-      'link' => []
-    ],
+          'label' => [
+                'number'   => 'Order Number',
+                'type'     => 'Order Type',
+                'date'     => 'Order Date',
+                'amount'   => 'Amount',
+                'total'    => 'Total',
+          ],
+          'button' => [],
+          'link' => []
+        ],
         'menu' => [
-          'columns' => [
-            'sl'            => 'SL',
-            'name'          => 'Dish Name',
-            'description'   => 'Dish Description',
-            'type'          => 'Type of Dish',
-            'size'          => 'Dish Size',
-            'price'         => 'price',
-            'createdAt'         => 'Created At',
-            'updatedAt'         => 'Updated',
-            'action'         => 'Action',
-          ],
-        'entry' => [
-            'name'          => 'Dish Name',
-            'description'   => 'Dish Description',
-            'type'          => 'Type of Dish',
-            'size'          => 'Dish Size',
-            'price'         => 'Price',
-            'title'         => 'Admin Menu',
-        ],
-        'label' => [
-            'title'          => 'Manage Dish',
-            'dishDetails'         => 'Dish Details',
-            'images'         => 'Dish Images',
-            'success'       => 'Dish has been successfully modified!'
-        ],
-          'button' => [
-              'add' => 'Add Dish',
-              'save' => 'Save',
-              'delete' => 'Delete',
-          ],
-          'link' => [
+            'columns' => [
+                'sl'            => 'SL',
+                'name'          => 'Dish Name',
+                'description'   => 'Dish Description',
+                'type'          => 'Type of Dish',
+                'size'          => 'Dish Size',
+                'price'         => 'price',
+                'createdAt'     => 'Created At',
+                'updatedAt'     => 'Updated',
+                'action'        => 'Action',
+            ],
+            'entry' => [
+                'name'          => 'Name',
+                'description'   => 'Description',
+                'type'          => 'Type',
+                'size'          => 'Size',
+                'price'         => 'Price',
+                'title'         => 'Title',
+            ],
+            'label' => [
+                'title'          => 'Manage Menu',
+                'dishDetails'    => 'Product details',
+                'images'         => 'Product Images',
+                'success'        => 'Dish has been successfully modified!',
+                'uploadImage'    => 'Upload Image (jpg, png)',
+                'image'          => 'Image',
+                'edit'           => 'Edit Product',
+                'add'            => 'Add Product',
+            ],
+            'button' => [
+              'add'     => 'Add',
+              'save'    => 'Save',
+              'delete'   => 'Delete',
+            ],
+            'link' => [
               'back' => 'Back'
-          ]
+            ]
         ],
         'store'     => [
             'label' => [
-                'manageStore'             => 'Admin Restaurant',
+                'manageStore'             => 'Restaurant Information',
                 'updateMessage'           => 'Shop has been successfully modified!',
-                'businessName'            => 'Shop Name',
+                'businessName'            => 'Restaurant Name',
                 'shopTelephone'           => 'Shop Telephone',
                 'back'                    => 'Back',
                 'shopOwnerEmail'          => 'Shop Owner Email',
                 'selectOne'               => 'Select One',
                 'subCategory'             => 'Sub Category',
-                'businessDescription'     => 'Shop Description',
+                'businessDescription'     => 'Restaurant Description',
                 'shopImage'               => 'Shop Icon',
                 'upload'                  => 'Upload Image',
                 'coverImage'              => 'Cover Image',
@@ -329,16 +340,16 @@ return [
                 'city'                      => 'City',
                 'postalCode'                => 'Postal Code',
                 'companyName'               => 'Shop Name',
-                'companyType'               => 'Company Type',
+                'companyType'               => 'Business Type',
                 'category'                  => 'Category',
                 'subcategory'               => 'Sub Category',
                 'selectOption'              => 'select option',
                 'success'                   => 'Shop has been successfully modified!'
             ],
             'button' => [
-                'add' => 'Add Dish',
-                'save' => 'Save',
-                'delete' => 'Delete',
+                'add'     => 'Add',
+                'save'    => 'Save',
+                'delete'   => 'Delete',
             ],
             'link' => [
                 'back' => 'Back'

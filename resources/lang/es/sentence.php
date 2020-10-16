@@ -113,7 +113,7 @@ return [
             'purchasedProduct' => 'Producto Comprado',
             'totalOrder' => 'Total Orden'
           ]
-        ],                        
+        ],
         'customer'  => [
                 'label' => [
                   'manageCustomer'=> 'Mis Clientes',
@@ -204,6 +204,168 @@ return [
             ],
                 'link' => []
             ],
-    ]
+    ],
+    'restaurant' => [
+        'footer' => [
+            'closeToMe'                 => 'Cerca de Mi',
+            'partnership'               => 'Partnership / Programa Partner',
+            'partner'                   => 'Portal Negocios',
+            'closeToMeText'             => 'Cerca de Mi Negocios Locales es el lugar digital para que todas las tiendas y restaurantes expandan sus negocios en el mundo digital.',
+            'createYourBusiness'        => 'Crea tu negocio',
+            'signInForBusiness'         => 'Iniciar sesión',
+            'howToCreateYourBusiness'   => 'Cómo crear tu negocio',
+            'pricing'                   => 'Precios',
+            'categories'                => 'Categorias',
+            'clothes'                   => 'Ropa',
+            'gaming'                    => 'Juegos',
+            'electronics'               => 'Electrónica',
+            'moreCategories'            => 'Tecnología y Electrónica',
+            'contactUs'                 => 'Sobre Nosotros',
+            'copyright'                 => 'Derechos de autor',
+            'termsAndConditions'        => 'Términos y Condiciones',
+            'policy'                    => 'política',
+            'portal'                    => 'portal',
+            'computing'                 => 'Informática',
+        ],
+        'sidebar' => [
+            'label' => [
+                'dashboard'    => 'Dashboard',
+                'tables'       => 'Tablero',
+                'clients'      => 'Clientes',
+                'orders'       => 'Gestionar Ordenes',
+                'reservations' => 'Gestionar Reservas',
+                'menus'        => 'Gestionar Menú',
+                'restaurants'  => 'Información Restaurante',
+                'comments'     => 'Comentarios',
+                'tasks'        => 'Tareas',
+            ],
+            'button' => [],
+            'link' => []
+        ],
+        'dashboard' => [
+              'label' => [
+                    'clients'   => 'Clientes',
+                    'revenue'   => 'Ingresos',
+                    'artists'   => 'Alertas',
+                    'tasks'     => 'Tareas',
+                    'orders'    => 'Pedidos',
+                    'comments'  => 'Comentarios',
+              ],
+              'button' => [],
+              'link' => [
+                  'moreInfo'   => 'Más Info',
+              ]
+        ],
+        'customer' => [
+              'columns' => [
+                  'no'        => 'N',
+                  'name'      => 'Clientes',
+                  'title'     => 'My Clients',
+                  'item'      => 'Producto Comprado',
+                  'orders'    => 'Total Orden',
+                  'date'      => 'Fecha de Orden',
+                  'status'    => 'Estado de Orden',
+              ],
+              'button' => [],
+              'link' => []
+        ],
+        'order' => [
+          'label' => [
+                'number'   => 'Order Number',
+                'type'     => 'Order Type',
+                'date'     => 'Order Date',
+                'amount'   => 'Amount',
+                'total'    => 'Total',
+          ],
+          'button' => [],
+          'link' => []
+        ],
+        'menu' => [
+            'columns' => [
+                'no'            => 'N',
+                'name'          => 'Producto',
+                'description'   => 'Descprición',
+                'type'          => 'Tipo',
+                'size'          => 'Tamaño',
+                'price'         => 'Precio',
+                'createdAt'     => 'Creado',
+                'updatedAt'     => 'Modificado',
+                'action'        => 'Acción',
+            ],
+            'entry' => [
+                'name'          => 'Nombre',
+                'description'   => 'Descprición',
+                'type'          => 'Tipo',
+                'size'          => 'Tamaño',
+                'price'         => 'Precio',
+                'title'         => 'Title',
+            ],
+            'label' => [
+                'title'          => 'Gestionar Menú',
+                'dishDetails'    => 'Detalles Producto',
+                'images'         => 'Imágenes Producto',
+                'success'        => '¡El plato se ha modificado correctamente!',
+                'uploadImage'    => 'Subir Imagen (jpg, png)',
+                'image'          => 'Imagen',
+                'edit'           => 'Editar Producto',
+                'add'            => 'Añadir Producto',
+            ],
+            'button' => [
+              'add'     => 'Añadir',
+              'save'    => 'Guardar',
+              'delete'   => 'Borrar',
+            ],
+            'link' => [
+              'back' => 'Atras'
+            ]
+        ],
+        'store'     => [
+            'label' => [
+                'manageStore'             => 'Información Restaurante',
+                'updateMessage'           => 'Shop has been successfully modified!',
+                'businessName'            => 'Nombre Restaurante',
+                'shopTelephone'           => 'Shop Telephone',
+                'back'                    => 'Back',
+                'shopOwnerEmail'          => 'Shop Owner Email',
+                'selectOne'               => 'Select One',
+                'subCategory'             => 'Sub Category',
+                'businessDescription'     => 'Descripción del Restaurante',
+                'shopImage'               => 'Shop Icon',
+                'upload'                  => 'Upload Image',
+                'coverImage'              => 'Cover Image',
+                'shopIcon'                => 'Icono del Restaurante ',
+                'preferableSize'          => 'Preferrable size',
+                'postCode'                => 'Postal Code',
+                'businessType'            => 'Restaurant Type',
+                'businessDetails'         => 'Datos Restaurante',
+                'manageAddress'           => 'Gestionar Dirección',
+                'managePassword'          => 'Gestionar Contraseña',
+
+                'password'                  => 'Contraseña ',
+                'confirmPassword'           => 'Ingresar Contraseña de Nuevo',
+                'email'                     => 'Email',
+                'phone'                     => 'Teléfono',
+                'country'                   => 'Country',
+                'streetNumber'              => 'Número',
+                'street'                    => 'Calle',
+                'city'                      => 'Ciudad',
+                'postalCode'                => 'Código Postal',
+                'companyName'               => 'Shop Name',
+                'companyType'               => 'Tipo de Negocio',
+                'category'                  => 'Categoria',
+                'subcategory'               => 'Sub Category',
+                'selectOption'              => 'select option',
+                'success'                   => 'Shop has been successfully modified!'
+            ],
+            'button' => [
+                'add'     => 'Añadir',
+                'save'    => 'Guardar',
+                'delete'   => 'Borrar',
+            ],
+            'link' => [
+                'back' => 'Atras'
+            ]
+        ],
+    ],
 
 ];

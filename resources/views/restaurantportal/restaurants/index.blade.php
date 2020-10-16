@@ -59,7 +59,7 @@
                                                     <input type="text" required name="email" class="form-control" value="{{$businessUserInfo['raw_email']}}" autocomplete="off">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">{{ trans('sentence.restaurant.store.label.companyType') }}<span class="text-danger">*</span></label>
                                                     <select class="form-control" required name="business_type">
@@ -73,7 +73,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">{{ trans('sentence.restaurant.store.label.category') }}<span class="text-danger">*</span></label>
                                                     <select class="form-control" required name="category">
@@ -81,7 +81,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6" style="display: none;">
                                                 <div class="form-group">
                                                     <label for="">{{ trans('sentence.restaurant.store.label.subcategory') }}<span class="text-danger">*</span></label>
                                                     <select class="form-control" name="subcategory">

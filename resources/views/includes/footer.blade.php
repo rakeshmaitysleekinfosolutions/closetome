@@ -15,16 +15,13 @@
                             <div class="social-icon">
                                 <ul>
                                     <li>
-                                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
+                                        <a href="https://www.facebook.com/Cerca-de-Mi-101394868383256" target="_blank"><i class="fab fa-facebook-f"></i> </a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
+                                        <a href="https://twitter.com/mi_cerca" target="_blank"><i class="fab fa-twitter"></i> </a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank"><i class="fab fa-youtube-square"></i> </a>
+                                        <a href="https://www.instagram.com/cerca_de_mi_es/" target="_blank"><i class="fab fa-instagram"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -128,30 +125,7 @@
 </footer>
 <!-- /Footer -->
 
-<script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
-<!-- Bootstrap Core JS -->
-<script src="{{ URL::asset('assets/js/popper.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<!-- Slick JS -->
-<script src="{{ URL::asset('assets/js/slick.js')}}"></script>
-<!-- Custom JS -->
-<script src="{{ URL::asset('assets/js/script.js')}}"></script>
-<!-- Select2 JS -->
-<script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-<!-- Datetimepicker JS -->
-<script src="{{ URL::asset('assets/js/moment.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Sticky Sidebar JS -->
-<script src="{{ URL::asset('assets/plugins/theia-sticky-sidebar/ResizeSensor.js')}}"></script>
-<script src="{{ URL::asset('assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}"></script>
-<!-- Custom JS -->
-<script src="{{ URL::asset('assets/js/script.js')}}"></script>
-<script src="{{ URL::asset('assets/js/import.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/js/main.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/js/myscript.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/js/jquery.validate.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/js/additional-methods.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
+
+
+<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>

@@ -54,6 +54,7 @@
         @include('restaurantportal.inc.footer')
 
         <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
+        <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @stack('scripts')
     </body>

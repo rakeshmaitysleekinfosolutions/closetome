@@ -8,12 +8,15 @@
                 <ul class="list-group">
                     <ul class="list-group">
                         <li class="list-group-item"><a href="{{ route('restaurantportal.dashboard') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.dashboard')) }}</a></li>
+                        <li class="list-group-item"><a href="#tables" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.tables')) }}</a></li>
                         <li class="list-group-item"><a href="{{ route('clients') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.clients')) }}</a></li>
-                        <li class="list-group-item"><a href="{{ route('menus') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.adminMenu'))}}</a></li>
-                        <li class="list-group-item"><a href="{{ route('orders') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.adminOrders')) }}</a></li>
-                        <li class="list-group-item"><a href="{{ route('restaurants') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.adminRestaurant')) }}</a></li>
-                        <li class="list-group-item"><a href="{{ route('mentions') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.mentions')) }}</a></li>
-                        <li class="list-group-item"><a href="{{ route('tasks') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.tasks')) }}</a></li>
+                        <li class="list-group-item"><a href="#orders" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.orders')) }}</a></li>
+                        <li class="list-group-item"><a href="#reservations" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.reservations')) }}</a></li>
+                        <li class="list-group-item"><a href="{{ route('menus') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.menus'))}}</a></li>
+
+                        <li class="list-group-item"><a href="{{ route('restaurants') }}" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.restaurants')) }}</a></li>
+                        <li class="list-group-item"><a href="#comments" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.comments')) }}</a></li>
+                        <li class="list-group-item"><a href="#tasks" class=" text-color">{{ ucfirst(trans('sentence.restaurant.sidebar.label.tasks')) }}</a></li>
                     </ul>
                 </ul>
             </div>

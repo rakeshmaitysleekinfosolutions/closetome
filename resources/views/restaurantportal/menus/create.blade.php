@@ -71,11 +71,11 @@
                             <table id="images" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <th colspan="3">
-                                       Dish Images
+                                        {{ trans('sentence.restaurant.menu.label.images') }}
                                     </th>
                                     <tr>
-                                        <td class="text-left">Image</td>
-                                        <td>Upload File</td>
+                                        <td class="text-left">{{ trans('sentence.restaurant.menu.label.image') }}</td>
+                                        <td>{{ trans('sentence.restaurant.menu.label.uploadImage') }}</td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -123,4 +123,5 @@
     var myLabel             = myLabel || {};
     myLabel.imageRow        = '<?php echo $imageRow;?>';
     myLabel.placeholder     = '<?php echo $placeholder;?>';
+
 </script>
