@@ -37,7 +37,7 @@
                             <!--<a class="nav-item nav-link p-top " href="#" tabindex="-1" aria-disabled="true">
 								<i class="fa fa-cart-plus font-large"></i> &nbsp; <span class="badge badge-info">0</span>
 							</a>-->
-                        
+
                             <a class="nav-item nav-link p-top" href="{{route('user_login')}}"><i class="fa fa-sign-in-alt text-info"></i> {{ trans('sentence.Login') }}</a>
                             <a class="nav-item nav-link  p-top" href="{{route('user_signup')}}"><i class="fas fa-user-plus text-blue"></i>&nbsp;{{trans('sentence.Sign_Up')}}</a>
                         <!--<a class="nav-item nav-link p-top" href="register.php"><i class="fa fa-business-time text-green"></i> Start Business</a>-->

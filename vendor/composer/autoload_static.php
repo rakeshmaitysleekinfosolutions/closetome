@@ -574,6 +574,8 @@ class ComposerStaticInitb0a2fb324859b61ddd7239ef014872be
         'App\\Http\\Controllers\\RestaurantPortal\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/OrderController.php',
         'App\\Http\\Controllers\\RestaurantPortal\\RestaurantController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/RestaurantController.php',
         'App\\Http\\Controllers\\RestaurantPortal\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestaurantPortal/TaskController.php',
+        'App\\Http\\Controllers\\Seller\\SellerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellerController.php',
+        'App\\Http\\Controllers\\Seller\\Shop\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/Shop/ProductController.php',
         'App\\Http\\Controllers\\Shopcontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/Shopcontroller.php',
         'App\\Http\\Controllers\\Usercontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/Usercontroller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

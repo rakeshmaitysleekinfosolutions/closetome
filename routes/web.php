@@ -50,11 +50,20 @@ Route::get('/bus/dashboard',[BusinessUserController::class,'dashboard'])->name('
 Route::get('/bus/customers',[BusinessUserController::class,'customers'])->name('bus/customers');
 Route::get('/bus/store',[BusinessUserController::class,'manageStore'])->name('bus/store');
 Route::post('/bus/storeUpdate',[BusinessUserController::class,'storeUpdate'])->name('bus/storeUpdate');
-Route::get('/bus/products',[BusinessUserController::class,'manageProducts'])->name('bus/products');
+//Route::get('/bus/products',[BusinessUserController::class,'manageProducts'])->name('bus/products');
 Route::get('/bus/singleproduct/{id}',[BusinessUserController::class,'showSingleProduct'])->name('bus/singleproduct');
 Route::get('/bus/editproduct/{id}',[BusinessUserController::class,'editProduct'])->name('bus/editproduct');
-Route::get('/bus/addproduct',[BusinessUserController::class,'addProduct'])->name('bus/addproduct');
-Route::post('/bus/addproductsubmit',[BusinessUserController::class,'addProductSubmit'])->name('bus/addproductsubmit');
+
+Route::get('/bus/product/create',[\App\Http\Controllers\Seller\Shop\ProductController::class,'create'])->name('shop.product.create');
+Route::post('/bus/product/fetch',[\App\Http\Controllers\Seller\Shop\ProductController::class,'fetch'])->name('shop.product.fetch');
+Route::get('/bus/product/edit/{id}',[\App\Http\Controllers\Seller\Shop\ProductController::class,'edit'])->name('shop.product.edit');
+Route::post('/bus/product/update/{id}',[\App\Http\Controllers\Seller\Shop\ProductController::class,'update'])->name('shop.product.update');
+Route::get('/bus/product',[\App\Http\Controllers\Seller\Shop\ProductController::class,'index'])->name('shop.product');
+Route::post('/bus/shop/product/store',[\App\Http\Controllers\Seller\Shop\ProductController::class,'store'])->name('shop.product.store');
+Route::post('/bus/shop/product/fetch-subcategories', [\App\Http\Controllers\Seller\Shop\ProductController::class, 'fetchChildCategory'])->name('shop.product.fetch-subcategories');
+Route::post('/bus/shop/product/delete/image/{id}', [
+    \App\Http\Controllers\Seller\Shop\ProductController::class, 'deleteImage'
+])->name('shop.product.delete.image');
 
 Route::get('/bus/deleteProduct/{id}',[BusinessUserController::class,'deleteProduct'])->name('bus/deleteProduct');
 
@@ -157,3 +166,8 @@ Route::prefix('restaurantportal')->group(function() {
     ]);
 });
 
+
+
+Route::get('/how-to-create-your-business', [
+    \App\Http\Controllers\Pagecontroller::class, 'howToCreateYourBusiness'
+])->name('how-to-create-your-business');

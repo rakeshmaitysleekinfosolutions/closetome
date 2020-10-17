@@ -1,4 +1,4 @@
-@extends('restaurantportal.layouts.master')
+@extends('layouts.seller')
 @section('content')
     <div class="col-md-10 col-sm-12">
         <div class="">
@@ -6,7 +6,7 @@
                 <div class="col-md-12 col-sm-12 bg-white main-shadwo">
                     <div class="enter-conta">
                         <div class="row" >
-                            <div class="col-lg-2 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="circle-tile">
                                     <a href="#">
                                         <div class="circle-tile-heading dark-blue">
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="circle-tile">
                                     <a href="#">
                                         <div class="circle-tile-heading green">
@@ -43,6 +43,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            /*
                             <div class="col-lg-2 col-sm-6">
                                 <div class="circle-tile">
                                     <a href="#">
@@ -80,7 +82,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-sm-6">
+                            */?>
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="circle-tile">
                                     <a href="#">
                                         <div class="circle-tile-heading red">
@@ -99,7 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="circle-tile">
                                     <a href="#">
                                         <div class="circle-tile-heading purple">
@@ -119,12 +122,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-10 col-sm-6">
+                            <p>¡Bienvenido a tu portal!
+                                Recuerda que para que tu portal digital este activo debes rellenar la información y el menú de tu restaurante, estas secciones las encuestras en el menú.
+                            </p>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
 
 
             </div>
+
         </div>
     </div>
 @endsection

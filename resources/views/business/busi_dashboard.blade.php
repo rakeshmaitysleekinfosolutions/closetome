@@ -8,11 +8,11 @@
                         margin-right: 1%;
                     }
                 </style>
-                
+
                 @include('business.busi_header')
             </div>
         </div>
-        
+
         <div class="container-fluid my-5">
             <div class="margin-25">
                 <div class="row">
@@ -21,12 +21,12 @@
                         @include('business.bus_sidebar')
 
                     </div>
-                    
+
                     <div class="col-md-10 col-sm-12">
                         <div class="col-md-12 col-sm-12 bg-white main-shadwo">
                             <div class="enter-conta">
                                 <div class="row" >
-                                    <div class="col-lg-2 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div class="circle-tile">
                                             <a href="#">
                                                 <div class="circle-tile-heading dark-blue">
@@ -45,7 +45,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div class="circle-tile">
                                             <a href="#">
                                                 <div class="circle-tile-heading green">
@@ -63,6 +63,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <?php
+                                    /*
                                     <div class="col-lg-2 col-sm-6">
                                         <div class="circle-tile">
                                             <a href="#">
@@ -75,7 +77,7 @@
                                                     {{trans('sentence.business.dashboard.label.artists')}}
                                                 </div>
                                                 <div class="circle-tile-number text-faded">
-                                                   0 
+                                                   0
                                                 </div>
                                                 <a href="#" class="circle-tile-footer">{{trans('sentence.business.dashboard.link.moreInfo')}} <i class="fa fa-chevron-circle-right"></i></a>
                                             </div>
@@ -100,7 +102,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-sm-6">
+                                    */?>
+                                    <div class="col-lg-3 col-sm-6">
                                         <div class="circle-tile">
                                             <a href="#">
                                                 <div class="circle-tile-heading red">
@@ -119,7 +122,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div class="circle-tile">
                                             <a href="#">
                                                 <div class="circle-tile-heading purple">
@@ -167,5 +170,5 @@
 
                 </div>
             </div>
-        </div>    
+        </div>
         @include('includes.footer')

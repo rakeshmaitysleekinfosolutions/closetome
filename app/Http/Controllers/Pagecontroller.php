@@ -15,5 +15,10 @@ class Pagecontroller extends Controller
         App::setLocale($locale);
         session()->put('locale', $locale);
         return redirect()->back();
-    }    
+    }
+
+    public function howToCreateYourBusiness() {
+        $this->data['title'] = 'How to Create Your Business';
+        return view('pages.how-to-create-your-business', $this->data);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BusinessType;
 use App\Models\BusinessTypeChildCategory;
 use App\Models\BusinessTypeParentCategory;
+use App\Models\Dish;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,15 +22,7 @@ use File;
 class BusinessUserController extends Controller
 {
 
-    private $vendor;
-    private $businessUserInfo;
-    private $businessTypeId;
-    private $businessTypeParentCategory;
-    private $businessType;
-    private $coverImage;
-    private $coverImageFile;
-    private $shopImageFile;
-    private $shopImage;
+
     /**
      * @var string
      */
@@ -45,7 +38,7 @@ class BusinessUserController extends Controller
     /**
      * @var mixed
      */
-    private $businessUserId;
+
 
     /**
      * Display a listing of the resource.
@@ -69,6 +62,7 @@ class BusinessUserController extends Controller
 
         $this->data['businessTypes'] = BusinessType::all()->toArray();
         //dd($this->data['businessUserInfo']);
+        $this->data['back'] = url()->route('manage-store');
         return view('businessportal.index', $this->data);
 
         //dd($this->vendor);
@@ -99,20 +93,22 @@ class BusinessUserController extends Controller
     public function fetchChildCategory(Request $request) {
         if($request->ajax()) {
             $businessTypeParentCategoryName = ($request->has('businessTypeParentCategory')) ? $request->get('businessTypeParentCategory') : '';
-            $parentCategory                 = BusinessTypeParentCategory::where('spanish_translation', $businessTypeParentCategoryName)->get();
-            if($parentCategory) {
-                $childCategories = BusinessTypeChildCategory::where('category_id', $parentCategory[0]->category_id)->whereNotNull('subcategory_name')->get();
-            }
-            //dd($childCategories);
-            if(count($childCategories) > 0) {
-                foreach ($childCategories as $childCategory) {
-                    $this->response[] = array(
-                        'id'    => $childCategory->subcategory_id ,
-                        'name'  => $childCategory->spanish_translation
-                    );
+            if($businessTypeParentCategoryName) {
+                $parentCategory                 = BusinessTypeParentCategory::where('spanish_translation', $businessTypeParentCategoryName)->get();
+                if($parentCategory) {
+                    $childCategories = BusinessTypeChildCategory::where('category_id', $parentCategory[0]->category_id)->whereNotNull('subcategory_name')->get();
                 }
+                if(count($childCategories) > 0) {
+                    foreach ($childCategories as $childCategory) {
+                        $this->response[] = array(
+                            'id'    => $childCategory->subcategory_id ,
+                            'name'  => $childCategory->spanish_translation
+                        );
+                    }
+                }
+                return response()->json(['businessTypeChildCategory' => $this->response],200);
             }
-            return response()->json(['businessTypeChildCategory' => $this->response],200);
+            return response()->json(['businessTypeChildCategory' => []],200);
         }
     }
     /**
@@ -282,6 +278,7 @@ class BusinessUserController extends Controller
             // Code added by rakesh
             if(isset($new_vendor->vendor_id)) {
                 session()->put('businessUserId', $new_vendor->vendor_id);
+                $request->session()->put('business_type', $new_vendor->business_type);
             }
 
             if($new_vendor->business_type == 'Restaurants') {
@@ -375,6 +372,7 @@ class BusinessUserController extends Controller
                 // Code added by rakesh
                 if(isset($user->vendor_id)) {
                     $request->session()->put('businessUserId', $user->vendor_id);
+                    $request->session()->put('business_type', $user->business_type);
                 }
                 if($user->business_type == 'Restaurants') {
                     return redirect()->route('restaurantportal.dashboard');
@@ -576,99 +574,205 @@ class BusinessUserController extends Controller
             return redirect('bus/signin');
         }
     }
+    /**
+     * @param $request
+     * Upload Additional Product Images
+     */
+    public function setProduct($request) {
+        if (!empty($this->product)) {
+            $this->data['id'] = $this->product->id;
+        } else {
+            $this->data['id'] = '';
+        }
+
+        if (session()->has('businessUserId')) {
+            $this->businessUserId = session()->get('businessUserId');
+        }
+
+        if($this->businessUserId) {
+            $this->data['vendor_id'] = $this->businessUserId;
+        }
+        if (!empty($request->post('category_id'))) {
+            $this->data['category_id'] = $request->post('category_id');
+        } elseif (!empty($this->product)) {
+            $this->data['category_id'] = $this->product->category_id;
+        } else {
+            $this->data['category_id'] = '';
+        }
+        if (!empty($request->post('subcategory_id'))) {
+            $this->data['subcategory_id'] = $request->post('subcategory_id');
+        } elseif (!empty($this->product)) {
+            $this->data['subcategory_id'] = $this->product->subcategory_id;
+        } else {
+            $this->data['subcategory_id'] = '';
+        }
+        // Name
+        if (!empty($request->post('product_name'))) {
+            $this->data['product_name'] = $request->post('product_name');
+        } elseif (!empty($this->product)) {
+            $this->data['product_name'] = $this->product->product_name;
+        } else {
+            $this->data['product_name'] = '';
+        }
+        if (!empty($request->post('product_brand'))) {
+            $this->data['product_brand'] = $request->post('product_brand');
+        } elseif (!empty($this->product)) {
+            $this->data['product_brand'] = $this->product->product_brand;
+        } else {
+            $this->data['product_brand'] = '';
+        }
+        if (!empty($request->post('product_quantity'))) {
+            $this->data['product_quantity'] = $request->post('product_quantity');
+        } elseif (!empty($this->product)) {
+            $this->data['product_quantity'] = $this->product->product_quantity;
+        } else {
+            $this->data['product_quantity'] = '';
+        }
+        if (!empty($request->post('product_price'))) {
+            $this->data['product_price'] = $request->post('product_price');
+        } elseif (!empty($this->product)) {
+            $this->data['product_price'] = $this->product->product_price;
+        } else {
+            $this->data['product_price'] = '';
+        }
+        if (!empty($request->post('product_description'))) {
+            $this->data['product_description'] = $request->post('product_description');
+        } elseif (!empty($this->product)) {
+            $this->data['product_description'] = $this->product->product_description;
+        } else {
+            $this->data['product_description'] = '';
+        }
+
+        if (!empty($request->post('colors'))) {
+            $this->data['colors'] = $request->post('colors');
+        } elseif (!empty($this->product)) {
+            $this->data['colors'] = $this->product->colors->toArray();
+        } else {
+            $this->data['colors'] = array();
+        }
+
+        if (!empty($request->post('sizes'))) {
+            $this->data['sizes'] = $request->post('sizes');
+        } elseif (!empty($this->product)) {
+            $this->data['sizes'] = $this->product->sizes->toArray();
+        } else {
+            $this->data['sizes'] = array();
+        }
+
+        $target             = public_path().'/uploads/';
+        $additionalImages   = array();
+        $this->data['placeholder']  = Helper::resize('no_image.png', 100, 100);
+        $this->data['back'] = url()->route('menus');
+        // Images
+        $newImages = array();
+        if (!empty($request->file('images'))) {
+            $images = $request->file('images');
+            if(!empty($images)) {
+                foreach ($images as $image) {
+
+                    $file = 'shop-product-'.time() . '-' . strtolower($image['image']->getClientOriginalName());
+                    $image['image']->move($target, $file);
+                    $newImages[] = $file;
+                }
+
+                if(count($newImages)) {
+                    foreach ($newImages as $newImage) {
+                        $additionalImages[] = array(
+                            'url' => $newImage,
+                            'id'  => ''
+                        );
+                    }
+                }
+            }
+        } elseif (!empty($this->product->getAdditionalImages)) {
+            $additionalImages = $this->product->getAdditionalImages->toArray();
+        } else {
+            $additionalImages = array();
+        }
+        $this->data['images'] = array();
+        foreach ($additionalImages as $additionalImage) {
+            if (is_file(DIR_IMAGE . $additionalImage['url'])) {
+                $image = $additionalImage['url'];
+                $thumb = $additionalImage['url'];
+            } else {
+                $image = '';
+                $thumb = 'no_image.png';
+            }
+            $this->data['images'][] = array(
+                'image'      => $image,
+                'thumb'      => Helper::resize($image, 100, 100),
+                'id'         => $additionalImage['id'],
+            );
+        }
+    }
     public function addProduct(Request $request){
-        if ($request->session()->has('businessuser_info')) {
-            $user_info = $request->session()->get('businessuser_info','default');
-            $vid = $user_info['user_id'];
-            $vendor = Vendor::where('vendor_id',$vid)->take(1)->first();
-            // $shop_categories = VendorProduct::all();
-            $v = new VendorProduct;
+        $this->data['categories'] = array();
+        $this->data['vendor'] = array();
 
-            // $product_detail = $v->getProductDetailById($id);
-            // $product_variant_detail = $v->getProductVariantDetailById($id);
-            // $product_images = $v->getProductImagesById($id);
-            // $product_colors = $v->getProductColorsById($id);
-            // $product_sizes = $v->getProductSizesById($id);
-            $categories = Category::all();
-            return view('business.products.busi_productadd_form')->with(['vendor'=>$vendor,'categories'=>$categories]);
-            // $c = new Category;
-            // $subcats = $c->getSubcatsById($product_detail->category_id);
-            // return view('business.products.busi_productedit_form')->with(['vendor'=>$vendor,'product_detail'=>$product_detail,'product_variants'=>$product_variant_detail,'product_images'=>$product_images,'product_colors'=>$product_colors,'product_sizes'=>$product_sizes,'categories'=>$categories,'subcats'=>$subcats]);
+        if (session()->has('businessUserId')) {
+            $this->businessUserId = session()->get('businessUserId');
         }
-        else{
-            return redirect('bus/signin');
+        if($this->businessUserId) {
+            $this->businessUserInfo = $this->vendor->find($this->businessUserId);
         }
+        if($this->businessUserInfo) {
+            $this->data['businessUserInfo'] = $this->businessUserInfo->toArray();
+            $this->data['vendor'] = $this->businessUserInfo->toArray();
+        }
+
+        $this->data['businessTypes'] = BusinessType::all()->toArray();
+
+        $categories = Category::all()->where('business_type_id','=',1);
+
+        if($categories) {
+           $this->data['categories'] = $categories;
+        }
+
+        $this->setProduct($request);
+        return view('business.products.busi_productadd_form', $this->data);
     }
 
-    public function addProductSubmit(Request $request){
-        if ($request->session()->has('businessuser_info')) {
-        // dd($request->file());
-            $user_info = $request->session()->get('businessuser_info','default');
-            $vid = $user_info['user_id'];
 
-        $vendor_id = $request->input('vendor_id');
-
-        if ($request->session()->has('businessuser_info')) {
-            $user_info = $request->session()->get('businessuser_info','default');
-            $vid = $user_info['user_id'];
-            $vendor = Vendor::where('vendor_id',$vid)->take(1)->first();
-            // $shop_categories = VendorProduct::all();
-            $newProduct = VendorProduct::create([
-                'vendor_id'=>$vid,
-                'category_id'=>$request->input('category_id'),
-                'subcategory_id'=>$request->input('subcategory_id'),
-                'product_price'=>$request->input('product_price'),
-                'product_brand'=>$request->input('product_brand'),
-                'product_name'=>$request->input('product_name'),
-                'product_quantity'=>$request->input('product_quantity'),
-                'product_description'=>$request->input('product_description')
+    public function addProductSubmit(Request $request) {
+        try {
+            $this->setProduct($request);
+            $vendorProduct = VendorProduct::create([
+                'vendor_id'             => $this->data['vendor_id'],
+                'category_id'           => $this->data['category_id'],
+                'subcategory_id'        => $this->data['subcategory_id'],
+                'product_price'         => $this->data['product_price'],
+                'product_brand'         => $this->data['product_brand'],
+                'product_name'          => $this->data['product_name'],
+                'product_quantity'      => $this->data['product_quantity'],
+                'product_description'   => $this->data['product_description'],
             ]);
-            $newProduct->save();
-            $id = $newProduct->id;
-
-            $colors = $request->input('colors');
-            if(isset($colors)){
-            foreach($colors as $c){
-                $newProductColor = VendorProductColor::create([
-                    'product_color'=>$c,
-                    'vendor_product_id'=>$id
-                ]);
-                $newProductColor->save();
+            if(count($this->data['images'])) {
+                foreach ($this->data['images'] as $image) {
+                    $vendorProduct->image()->create([
+                        'url' => $image['image']
+                    ]);
+                }
             }
+            if(count($this->data['colors'])) {
+                foreach ($this->data['colors'] as $color) {
+                    VendorProductColor::create([
+                        'product_color'     =>  $color,
+                        'vendor_product_id' =>  $vendorProduct->id
+                    ]);
+                }
             }
-            $sizes = $request->input('sizes');
-            if(isset($sizes)){
-            foreach($sizes as $s){
-                $newProductSize = VendorProductSize::create([
-                    'product_size'=>$s,
-                    'vendor_product_id'=>$id
-                ]);
-                $newProductSize->save();
+            if(count($this->data['sizes'])) {
+                foreach ($this->data['sizes'] as $size) {
+                    VendorProductSize::create([
+                        'product_size'      =>  $size,
+                        'vendor_product_id' =>  $vendorProduct->id
+                    ]);
+                }
             }
-            }
-        for($i=1;$i<=6;$i++){
-            if($request->file('file'.$i) !=null){
-                $file = $request->file('file'.$i);
-                $ext = $file->extension();
-                $file_image = strtotime("now") . "_" . $vid . "_file".$i;
-                $file_image = $file_image . '.' . $ext;
-                $target = "public/assets/images/product_images";
-                // #Moving The file from its temp location to Real Server Location .
-                $file->move($target,$file_image);
-
-                $newImage = VendorProductImage::create([
-                    'vendor_product_image' => $file_image,
-                    'vendor_product_id'=>$id
-                ]);
-                $newImage->save();
-            }
-        }
-
-            return redirect('bus/products');
-        }
-    }
-        else{
-            return redirect('bus/signin');
+            session()->flash('message', trans('sentence.restaurant.menu.label.success'));
+            return redirect()->route('dish.add');
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
     }
     public function deleteProduct($id,Request $request){

@@ -10,10 +10,7 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="navbar-nav my-4 margin-25">
                             <div class="h3">{{ trans('sentence.restaurant.store.label.manageStore') }}</div>
-                            <div style="display: flex;justify-content: flex-end">
-                                <button class="btn takfua-back text-white"><i class="fas fa-save"></i>&nbsp;{{ trans('sentence.restaurant.menu.button.save') }}</button>&nbsp;
-                                <a href="{{$back}}" class="btn btn-primary rounded"><i class="fa fa-arrow-alt-circle-left"></i> {{ trans('sentence.restaurant.menu.link.back') }}</a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -132,7 +129,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">{{ trans('sentence.restaurant.store.label.postCode') }}<span class="text-danger">*</span></label>
+                                                    <label for="">{{ trans('sentence.restaurant.store.label.postalCode') }}<span class="text-danger">*</span></label>
                                                     <input type="text" name="postal_code" class="form-control" value="{{$businessUserInfo['postal_code']}}" />
                                                 </div>
                                             </div>
@@ -181,8 +178,8 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <td class="text-left">{{trans('sentence.restaurant.store.label.shopImage')}}</td>
-                                                <td class="text-left">{{trans('sentence.restaurant.store.label.upload')}}</td>
+                                                <td class="text-left">{{trans('sentence.restaurant.store.label.icon')}}</td>
+                                                <td class="text-left">{{ trans('sentence.restaurant.menu.label.uploadImage') }}</td>
                                             </tr>
 
                                             </thead>
@@ -195,14 +192,42 @@
                                                     <input type="hidden" name="image_id" value="{{$businessUserInfo['image_id']}}"/>
                                                 </td>
                                                 <td class="">
-                                                    <input type="file" class="form-control" name="shop_icon" value="{{$businessUserInfo['shop_icon']}}" id="input-image"/>
+                                                    <input type="file" class="form-control" name="shop_icon"  id="input-image"/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <td class="text-left">{{trans('sentence.restaurant.store.label.banner')}}</td>
+                                                <td class="text-left">{{ trans('sentence.restaurant.menu.label.uploadImage') }}</td>
+                                            </tr>
+
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <a href="javascript:void(0);"  type="image" id="thumb-image" data-toggle="image">
+                                                        <img src="{{$businessUserInfo['bthumb']}}" alt="" title="" data-placeholder="{{$businessUserInfo['placeholder']}}"/>
+                                                    </a>
+                                                    <input type="hidden" name="banner_id" value="{{$businessUserInfo['banner_id']}}"/>
+                                                </td>
+                                                <td class="">
+                                                    <input type="file" class="form-control" name="banner" id="input-banner"/>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+                                <br>
+                                <div style="display: flex;justify-content: flex-end">
+                                    <button class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;{{ trans('sentence.restaurant.menu.button.save') }}</button>&nbsp;
+                                    <a href="{{$back}}" class="btn btn-primary rounded"><i class="fa fa-arrow-alt-circle-left"></i> {{ trans('sentence.restaurant.menu.link.back') }}</a>
+                                </div>
                             </div>
+
 
                         </div>
                         <hr>

@@ -36,8 +36,8 @@
                         <ul>
                             <li><a href="{{ route('bus/signup') }}"><i class="fas fa-angle-double-right"></i>{{ trans('sentence.footer.createYourBusiness') }}</a></li>
                             <li><a href="{{ route('bus/signin') }}"><i class="fas fa-angle-double-right"></i>{{ trans('sentence.footer.signInForBusiness') }}</a></li>
-                            <li><a href="search.html"><i class="fas fa-angle-double-right"></i>
-                                    {{ trans('sentence.footer.howToCreateYourBusiness') }} <div style="margin-left: 22px;">{{ trans('sentence.footer.portal') }}</div>
+                            <li><a href="{{ route('how-to-create-your-business') }}"><i class="fas fa-angle-double-right"></i>
+                                    {{ trans('sentence.footer.howToCreateYourBusiness') }}
                                 </a>
                             </li>
 

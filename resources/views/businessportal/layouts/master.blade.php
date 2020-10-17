@@ -48,7 +48,7 @@
             </div>
         </div>
         <!-- /Footer -->
-        @include('businessportal.inc.footer');
+        @include('businessportal.inc.footer')
         <script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
         <!-- Bootstrap Core JS -->
         <script src="{{ URL::asset('assets/js/popper.min.js')}}"></script>

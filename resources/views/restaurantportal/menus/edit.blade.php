@@ -2,25 +2,25 @@
 @section('content')
 
     <div class="col-md-10 col-sm-12">
-        <form id="frm" action="{{route('dish.update', [$id])}}" method="post" enctype="multipart/form-data">
+        <form id="frmDish" class="frmDish" action="{{route('dish.update', [$id])}}" method="post" enctype="multipart/form-data">
         <div class="">
             <div class="col-md-12 col-sm-12 bg-white main-shadwo">
                 <div class="row bg-header border-bottom">
                     <div class="col-md-12 col-sm-12">
                         <div class="navbar-nav my-4 margin-25">
                             <div class="h3">{{ trans('sentence.restaurant.menu.label.title') }}</div>
-                            <div style="display: flex;justify-content: flex-end">
-                                <button class="btn takfua-back text-white"><i class="fas fa-save"></i>&nbsp;{{ trans('sentence.restaurant.menu.button.save') }}</button>&nbsp;
-                                <a href="{{$back}}" class="btn btn-primary rounded"><i class="fa fa-arrow-alt-circle-left"></i> {{ trans('sentence.restaurant.menu.link.back') }}</a>
-                            </div>
+                            @if(session()->has('message'))
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <strong>{{ session()->get('message') }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="enter-conta">
-
-                        @if(session()->has('message'))
-                            <p class="alert {{ session()->get('alert-class', 'alert-info') }}">{{ session()->get('message') }}</p>
-                        @endif
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card bg-white" style="margin-top: 0px !important;padding:0">
@@ -111,7 +111,11 @@
                         </div>
 
                         @csrf
-
+                            <br>
+                            <div style="display: flex;justify-content: flex-end">
+                                <button class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;{{ trans('sentence.restaurant.menu.button.save') }}</button>&nbsp;
+                                <a href="{{$back}}" class="btn btn-primary rounded"><i class="fa fa-arrow-alt-circle-left"></i> {{ trans('sentence.restaurant.menu.link.back') }}</a>
+                            </div>
                 </div>
             </div>
         </div>

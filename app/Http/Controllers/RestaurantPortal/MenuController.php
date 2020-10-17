@@ -38,8 +38,8 @@ class MenuController extends BaseController
                     'type'		    => $result->type,
                     'size'		    => $result->size,
                     'price'		    => $result->price,
-                    'created_at'    => Carbon::createFromTimeStamp(strtotime($result->created_at))->diffForHumans(),
-                    'updated_at'    => ($result->updated_at) ? Carbon::createFromTimeStamp(strtotime($result->updated_at))->diffForHumans() : ''
+                    'created_at'    => $result->created_at,
+                    'updated_at'    => $result->updated_at
                 );
             }
             $i = 0;

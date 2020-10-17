@@ -15812,502 +15812,6 @@ Popper.Defaults = Defaults;
 
 /***/ }),
 
-/***/ "./node_modules/toastr/toastr.js":
-/*!***************************************!*\
-  !*** ./node_modules/toastr/toastr.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
- * Toastr
- * Copyright 2012-2015
- * Authors: John Papa, Hans Fjällemark, and Tim Ferrell.
- * All Rights Reserved.
- * Use, reproduction, distribution, and modification of this code is subject to the terms and
- * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
- *
- * ARIA Support: Greta Krafsig
- *
- * Project: https://github.com/CodeSeven/toastr
- */
-/* global define */
-(function (define) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        return (function () {
-            var $container;
-            var listener;
-            var toastId = 0;
-            var toastType = {
-                error: 'error',
-                info: 'info',
-                success: 'success',
-                warning: 'warning'
-            };
-
-            var toastr = {
-                clear: clear,
-                remove: remove,
-                error: error,
-                getContainer: getContainer,
-                info: info,
-                options: {},
-                subscribe: subscribe,
-                success: success,
-                version: '2.1.4',
-                warning: warning
-            };
-
-            var previousToast;
-
-            return toastr;
-
-            ////////////////
-
-            function error(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.error,
-                    iconClass: getOptions().iconClasses.error,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function getContainer(options, create) {
-                if (!options) { options = getOptions(); }
-                $container = $('#' + options.containerId);
-                if ($container.length) {
-                    return $container;
-                }
-                if (create) {
-                    $container = createContainer(options);
-                }
-                return $container;
-            }
-
-            function info(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.info,
-                    iconClass: getOptions().iconClasses.info,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function subscribe(callback) {
-                listener = callback;
-            }
-
-            function success(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.success,
-                    iconClass: getOptions().iconClasses.success,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function warning(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.warning,
-                    iconClass: getOptions().iconClasses.warning,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function clear($toastElement, clearOptions) {
-                var options = getOptions();
-                if (!$container) { getContainer(options); }
-                if (!clearToast($toastElement, options, clearOptions)) {
-                    clearContainer(options);
-                }
-            }
-
-            function remove($toastElement) {
-                var options = getOptions();
-                if (!$container) { getContainer(options); }
-                if ($toastElement && $(':focus', $toastElement).length === 0) {
-                    removeToast($toastElement);
-                    return;
-                }
-                if ($container.children().length) {
-                    $container.remove();
-                }
-            }
-
-            // internal functions
-
-            function clearContainer (options) {
-                var toastsToClear = $container.children();
-                for (var i = toastsToClear.length - 1; i >= 0; i--) {
-                    clearToast($(toastsToClear[i]), options);
-                }
-            }
-
-            function clearToast ($toastElement, options, clearOptions) {
-                var force = clearOptions && clearOptions.force ? clearOptions.force : false;
-                if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
-                    $toastElement[options.hideMethod]({
-                        duration: options.hideDuration,
-                        easing: options.hideEasing,
-                        complete: function () { removeToast($toastElement); }
-                    });
-                    return true;
-                }
-                return false;
-            }
-
-            function createContainer(options) {
-                $container = $('<div/>')
-                    .attr('id', options.containerId)
-                    .addClass(options.positionClass);
-
-                $container.appendTo($(options.target));
-                return $container;
-            }
-
-            function getDefaults() {
-                return {
-                    tapToDismiss: true,
-                    toastClass: 'toast',
-                    containerId: 'toast-container',
-                    debug: false,
-
-                    showMethod: 'fadeIn', //fadeIn, slideDown, and show are built into jQuery
-                    showDuration: 300,
-                    showEasing: 'swing', //swing and linear are built into jQuery
-                    onShown: undefined,
-                    hideMethod: 'fadeOut',
-                    hideDuration: 1000,
-                    hideEasing: 'swing',
-                    onHidden: undefined,
-                    closeMethod: false,
-                    closeDuration: false,
-                    closeEasing: false,
-                    closeOnHover: true,
-
-                    extendedTimeOut: 1000,
-                    iconClasses: {
-                        error: 'toast-error',
-                        info: 'toast-info',
-                        success: 'toast-success',
-                        warning: 'toast-warning'
-                    },
-                    iconClass: 'toast-info',
-                    positionClass: 'toast-top-right',
-                    timeOut: 5000, // Set timeOut and extendedTimeOut to 0 to make it sticky
-                    titleClass: 'toast-title',
-                    messageClass: 'toast-message',
-                    escapeHtml: false,
-                    target: 'body',
-                    closeHtml: '<button type="button">&times;</button>',
-                    closeClass: 'toast-close-button',
-                    newestOnTop: true,
-                    preventDuplicates: false,
-                    progressBar: false,
-                    progressClass: 'toast-progress',
-                    rtl: false
-                };
-            }
-
-            function publish(args) {
-                if (!listener) { return; }
-                listener(args);
-            }
-
-            function notify(map) {
-                var options = getOptions();
-                var iconClass = map.iconClass || options.iconClass;
-
-                if (typeof (map.optionsOverride) !== 'undefined') {
-                    options = $.extend(options, map.optionsOverride);
-                    iconClass = map.optionsOverride.iconClass || iconClass;
-                }
-
-                if (shouldExit(options, map)) { return; }
-
-                toastId++;
-
-                $container = getContainer(options, true);
-
-                var intervalId = null;
-                var $toastElement = $('<div/>');
-                var $titleElement = $('<div/>');
-                var $messageElement = $('<div/>');
-                var $progressElement = $('<div/>');
-                var $closeElement = $(options.closeHtml);
-                var progressBar = {
-                    intervalId: null,
-                    hideEta: null,
-                    maxHideTime: null
-                };
-                var response = {
-                    toastId: toastId,
-                    state: 'visible',
-                    startTime: new Date(),
-                    options: options,
-                    map: map
-                };
-
-                personalizeToast();
-
-                displayToast();
-
-                handleEvents();
-
-                publish(response);
-
-                if (options.debug && console) {
-                    console.log(response);
-                }
-
-                return $toastElement;
-
-                function escapeHtml(source) {
-                    if (source == null) {
-                        source = '';
-                    }
-
-                    return source
-                        .replace(/&/g, '&amp;')
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#39;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;');
-                }
-
-                function personalizeToast() {
-                    setIcon();
-                    setTitle();
-                    setMessage();
-                    setCloseButton();
-                    setProgressBar();
-                    setRTL();
-                    setSequence();
-                    setAria();
-                }
-
-                function setAria() {
-                    var ariaValue = '';
-                    switch (map.iconClass) {
-                        case 'toast-success':
-                        case 'toast-info':
-                            ariaValue =  'polite';
-                            break;
-                        default:
-                            ariaValue = 'assertive';
-                    }
-                    $toastElement.attr('aria-live', ariaValue);
-                }
-
-                function handleEvents() {
-                    if (options.closeOnHover) {
-                        $toastElement.hover(stickAround, delayedHideToast);
-                    }
-
-                    if (!options.onclick && options.tapToDismiss) {
-                        $toastElement.click(hideToast);
-                    }
-
-                    if (options.closeButton && $closeElement) {
-                        $closeElement.click(function (event) {
-                            if (event.stopPropagation) {
-                                event.stopPropagation();
-                            } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
-                                event.cancelBubble = true;
-                            }
-
-                            if (options.onCloseClick) {
-                                options.onCloseClick(event);
-                            }
-
-                            hideToast(true);
-                        });
-                    }
-
-                    if (options.onclick) {
-                        $toastElement.click(function (event) {
-                            options.onclick(event);
-                            hideToast();
-                        });
-                    }
-                }
-
-                function displayToast() {
-                    $toastElement.hide();
-
-                    $toastElement[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
-                    );
-
-                    if (options.timeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.timeOut);
-                        progressBar.maxHideTime = parseFloat(options.timeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-                        if (options.progressBar) {
-                            progressBar.intervalId = setInterval(updateProgress, 10);
-                        }
-                    }
-                }
-
-                function setIcon() {
-                    if (map.iconClass) {
-                        $toastElement.addClass(options.toastClass).addClass(iconClass);
-                    }
-                }
-
-                function setSequence() {
-                    if (options.newestOnTop) {
-                        $container.prepend($toastElement);
-                    } else {
-                        $container.append($toastElement);
-                    }
-                }
-
-                function setTitle() {
-                    if (map.title) {
-                        var suffix = map.title;
-                        if (options.escapeHtml) {
-                            suffix = escapeHtml(map.title);
-                        }
-                        $titleElement.append(suffix).addClass(options.titleClass);
-                        $toastElement.append($titleElement);
-                    }
-                }
-
-                function setMessage() {
-                    if (map.message) {
-                        var suffix = map.message;
-                        if (options.escapeHtml) {
-                            suffix = escapeHtml(map.message);
-                        }
-                        $messageElement.append(suffix).addClass(options.messageClass);
-                        $toastElement.append($messageElement);
-                    }
-                }
-
-                function setCloseButton() {
-                    if (options.closeButton) {
-                        $closeElement.addClass(options.closeClass).attr('role', 'button');
-                        $toastElement.prepend($closeElement);
-                    }
-                }
-
-                function setProgressBar() {
-                    if (options.progressBar) {
-                        $progressElement.addClass(options.progressClass);
-                        $toastElement.prepend($progressElement);
-                    }
-                }
-
-                function setRTL() {
-                    if (options.rtl) {
-                        $toastElement.addClass('rtl');
-                    }
-                }
-
-                function shouldExit(options, map) {
-                    if (options.preventDuplicates) {
-                        if (map.message === previousToast) {
-                            return true;
-                        } else {
-                            previousToast = map.message;
-                        }
-                    }
-                    return false;
-                }
-
-                function hideToast(override) {
-                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
-                    var duration = override && options.closeDuration !== false ?
-                        options.closeDuration : options.hideDuration;
-                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
-                    if ($(':focus', $toastElement).length && !override) {
-                        return;
-                    }
-                    clearTimeout(progressBar.intervalId);
-                    return $toastElement[method]({
-                        duration: duration,
-                        easing: easing,
-                        complete: function () {
-                            removeToast($toastElement);
-                            clearTimeout(intervalId);
-                            if (options.onHidden && response.state !== 'hidden') {
-                                options.onHidden();
-                            }
-                            response.state = 'hidden';
-                            response.endTime = new Date();
-                            publish(response);
-                        }
-                    });
-                }
-
-                function delayedHideToast() {
-                    if (options.timeOut > 0 || options.extendedTimeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.extendedTimeOut);
-                        progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-                    }
-                }
-
-                function stickAround() {
-                    clearTimeout(intervalId);
-                    progressBar.hideEta = 0;
-                    $toastElement.stop(true, true)[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing}
-                    );
-                }
-
-                function updateProgress() {
-                    var percentage = ((progressBar.hideEta - (new Date().getTime())) / progressBar.maxHideTime) * 100;
-                    $progressElement.width(percentage + '%');
-                }
-            }
-
-            function getOptions() {
-                return $.extend({}, getDefaults(), toastr.options);
-            }
-
-            function removeToast($toastElement) {
-                if (!$container) { $container = getContainer(); }
-                if ($toastElement.is(':visible')) {
-                    return;
-                }
-                $toastElement.remove();
-                $toastElement = null;
-                if ($container.children().length === 0) {
-                    $container.remove();
-                    previousToast = undefined;
-                }
-            }
-
-        })();
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(/*! !webpack amd define */ "./node_modules/webpack/buildin/amd-define.js")));
-
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/amd-define.js":
-/*!***************************************!*\
-  !*** (webpack)/buildin/amd-define.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function() {
-	throw new Error("define cannot be used indirect");
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -17469,8 +16973,6 @@ __webpack_require__(/*! ./import */ "./resources/js/import.js");
 
 __webpack_require__(/*! ./script */ "./resources/js/script.js");
 
-__webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
-
 __webpack_require__(/*! ../../resources/js/plugins/datatables/datatables */ "./resources/js/plugins/datatables/datatables.js");
 
 __webpack_require__(/*! ../../resources/js/plugins/theia-sticky-sidebar/ResizeSensor */ "./resources/js/plugins/theia-sticky-sidebar/ResizeSensor.js");
@@ -17517,7 +17019,9 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
  */
 
 var $frm = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#frm"),
+    $frmDish = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#frmDish"),
     $registrationFrm = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#registrationFrm'),
+    $frmShopProduct = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#frmShopProduct"),
     validate = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.validate !== undefined; // Update store form validation
 
 if ($frm.length > 0 && validate) {
@@ -17839,72 +17343,236 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('select[name="category').on('chang
 });
 setTimeout(function () {
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('select[name="category"]').trigger('change');
-}, 300); // Image Manager
+}, 300); // Business User form validation
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', 'a[data-toggle=\'image\']', function (e) {
-  var $element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
-  var $popover = $element.data('bs.popover'); // element has bs popover?
-
-  e.preventDefault(); // dispose all image popovers
-
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('a[data-toggle="image"]').popover('destroy'); // remove flickering (do not re-add popover when clicking for removal)
-
-  if ($popover) {
-    return;
-  }
-
-  $element.popover({
-    html: true,
-    placement: 'right',
-    trigger: 'manual',
-    content: function content() {
-      return '<button type="button" id="button-image" class="btn btn-primary"><i class="fa fa-pencil"></i></button> <button type="button" id="button-clear" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>';
+if ($frmDish.length > 0 && validate) {
+  $frmDish.validate({
+    rules: {
+      name: {
+        required: true
+      },
+      type: {
+        required: true
+      },
+      size: {
+        required: true
+      },
+      price: {
+        required: true,
+        decimal: true
+      },
+      description: {
+        required: true
+      }
+    },
+    messages: {
+      name: {
+        required: "Campo obligatorio"
+      },
+      size: {
+        required: "Campo obligatorio"
+      },
+      type: {
+        required: "Campo obligatorio"
+      },
+      price: {
+        required: "Campo obligatorio",
+        decimal: "Ingresa un número de teléfono valido"
+      },
+      description: {
+        required: "Campo obligatorio"
+      }
     }
   });
-  $element.popover('show');
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#button-image').on('click', function () {
-    var $button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
-    var $icon = $button.find('> i');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#modal-image').remove();
-    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
-      url: myLabel.filemanager + '?target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id') + '&type=' + $element.attr('type'),
-      dataType: 'html',
-      beforeSend: function beforeSend() {
-        $button.prop('disabled', true);
-
-        if ($icon.length) {
-          $icon.attr('class', 'fa fa-circle-o-notch fa-spin');
+  $frmDish.on('submit', function (e) {
+    //console.log(this);
+    // adding rules for inputs with class 'comment'
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('input.image').each(function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).rules("add", {
+        required: true,
+        accept: true,
+        messages: {
+          required: 'Campo obligatorio',
+          accept: "Ingrese un valor con un mimetype.jpg / png / jpeg válido"
         }
-      },
-      complete: function complete() {
-        $button.prop('disabled', false);
-
-        if ($icon.length) {
-          $icon.attr('class', 'fa fa-pencil');
-        }
-      },
-      success: function success(html) {
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').append('<div id="modal-image" class="modal">' + html + '</div>');
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#modal-image').modal('show');
-      }
+      });
     });
-    $element.popover('dispose');
   });
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#button-clear').on('click', function () {
-    $element.find('img').attr('src', $element.find('img').attr('data-placeholder'));
-    $element.parent().find('input').val('');
-    $element.popover('dispose');
-  });
-});
+}
 /**
  * Add More Image Functionality
  */
+
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.addImage', function (e) {
   var html = '';
   html = '<tr id="image-row' + myLabel.imageRow + '">';
   html += '  <td class="text-left"><img src="' + myLabel.placeholder + '" alt="" title="" data-placeholder="' + myLabel.placeholder + '" /><input type="hidden" name="images[' + myLabel.imageRow + '][image]" value="" id="input-image' + myLabel.imageRow + '" /></td>';
-  html += '  <td class="text-left"><input type="file" name="images[' + myLabel.imageRow + '][image]" value="' + myLabel.imageRow + '" class="form-control" id="input-sort_order' + myLabel.imageRow + '"  required></td>';
+  html += '  <td class="text-left"><input type="file" accept="image/*" name="images[' + myLabel.imageRow + '][image]" value="' + myLabel.imageRow + '" class="form-control image" id="input-sort_order' + myLabel.imageRow + '"  required></td>';
+  html += '  <td class="text-left"><button type="button" data-row ="' + myLabel.imageRow + '" data-toggle="tooltip" title="' + myLabel.removeText + '" class="btn btn-danger delete"><i class="fa fa-minus-circle"></i></button></td>';
+  html += '</tr>';
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#images tbody').append(html);
+  myLabel.imageRow++;
+});
+/**
+ * @desc Delete Image from add more
+ */
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.delete', function (e) {
+  var row = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('data-row');
+  var id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('data-id');
+  var $button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
+
+  if (id) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+      url: jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('data-url'),
+      type: 'POST',
+      dataType: "JSON",
+      data: {
+        id: id
+      },
+      beforeSend: function beforeSend() {
+        $button.prop('disabled', true);
+      },
+      complete: function complete() {
+        $button.prop('disabled', false);
+      },
+      success: function success(res) {
+        // console.log(res);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#image-row' + row).remove(); // toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+      }
+    });
+  } else {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#image-row' + row).remove();
+  }
+});
+/** Add Product Page Onchange category and sub-category **/
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('select[name="category_id').on('change', function () {
+  var businessTypeParentCategory = jquery__WEBPACK_IMPORTED_MODULE_0___default()('select[name="category_id"]').val();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+    url: myLabel.childCategory,
+    dataType: 'json',
+    method: 'POST',
+    data: {
+      businessTypeParentCategory: businessTypeParentCategory
+    },
+    beforeSend: function beforeSend() {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('select[name="category"]').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+    },
+    complete: function complete() {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.fa-spin').remove();
+    },
+    success: function success(json) {
+      var html = '';
+      html = '<option value="">' + myLabel.selectOption + '</option>';
+
+      if (json['businessTypeChildCategory'] && json['businessTypeChildCategory'] != '') {
+        for (var i = 0; i < json['businessTypeChildCategory'].length; i++) {
+          html += '<option value="' + json['businessTypeChildCategory'][i]['id'] + '"';
+
+          if (json['businessTypeChildCategory'][i]['id'] == myLabel.businessTypeChildCategory) {
+            html += ' selected="selected"';
+          }
+
+          html += '>' + json['businessTypeChildCategory'][i]['name'] + '</option>';
+        }
+      } else {
+        html += '<option value="0" selected="selected">Empty</option>';
+      }
+
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('select[name="subcategory_id"]').html(html);
+    },
+    error: function error(xhr, ajaxOptions, thrownError) {//alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('select[name="category_id"]').trigger('change');
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('[data-toggle="tooltip"]').tooltip();
+var i = 1;
+var j = 1;
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', "#addcolor", function (e) {
+  i++;
+  var color = "'color_".concat(i, "'");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()("#dyn_colors").append('<div style="display: flex" class="mb-2" id=' + color + '><input type="text" class="form-control " name="colors[]"><button data-color=' + color + ' class="delete-color"  type="button" style="background: red;border:none;outline:none;color:white" ' + myLabel.removeText + '>' + myLabel.removeText + '</button></div>');
+}).on('click', "#addsize", function () {
+  j++;
+  var size = "'size_".concat(j, "'");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()("#dyn_sizes").append('<div style="display: flex" class="mb-2" id=' + size + '><input type="text" class="form-control " name="sizes[]"><button data-size=' + size + ' type="button" class="delete-size" style="background: red;border:none;outline:none;color:white" ' + myLabel.removeText + '>' + myLabel.removeText + '</button></div>');
+}).on('click', '.delete-color', function (e) {
+  var color = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('data-color');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#' + color).remove();
+}).on('click', '.delete-size', function (e) {
+  var size = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('data-size');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#' + size).remove();
+}); // Update store form validation
+
+if ($frmShopProduct.length > 0 && validate) {
+  $frmShopProduct.validate({
+    rules: {
+      category_id: {
+        required: true
+      },
+      product_price: {
+        required: true,
+        decimal: true
+      },
+      product_brand: {
+        required: true
+      },
+      product_name: {
+        required: true
+      },
+      product_quantity: {
+        required: true,
+        integer: true
+      }
+    },
+    messages: {
+      category_id: {
+        required: "Campo obligatorio"
+      },
+      product_price: {
+        required: "Campo obligatorio",
+        decimal: "Ingresa un número de teléfono valido"
+      },
+      product_brand: {
+        required: "Campo obligatorio"
+      },
+      product_name: {
+        required: "Campo obligatorio"
+      },
+      product_quantity: {
+        required: "Campo obligatorio",
+        integer: "Ingresa un número de teléfono valido"
+      }
+    }
+  });
+  $frmShopProduct.on('submit', function (e) {
+    //console.log(this);
+    // adding rules for inputs with class 'comment'
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('input.image').each(function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).rules("add", {
+        required: true,
+        accept: true,
+        messages: {
+          required: 'Campo obligatorio',
+          accept: "Ingrese un valor con un mimetype.jpg / png / jpeg válido"
+        }
+      });
+    });
+  });
+}
+/**
+ * Add More Image Functionality
+ */
+
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.addProductImage', function (e) {
+  var html = '';
+  html = '<tr id="image-row' + myLabel.imageRow + '">';
+  html += '  <td class="text-left"><img src="' + myLabel.placeholder + '" alt="" title="" data-placeholder="' + myLabel.placeholder + '" /><input type="hidden" name="images[' + myLabel.imageRow + '][image]" value="" id="input-image' + myLabel.imageRow + '" /></td>';
+  html += '  <td class="text-left"><input type="file" accept="image/*" name="images[' + myLabel.imageRow + '][image]" value="' + myLabel.imageRow + '" class="form-control image" id="input-sort_order' + myLabel.imageRow + '"  required></td>';
   html += '  <td class="text-left"><button type="button" data-row ="' + myLabel.imageRow + '" data-toggle="tooltip" title="Remove" class="btn btn-danger delete"><i class="fa fa-minus-circle"></i></button></td>';
   html += '</tr>';
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#images tbody').append(html);
@@ -17934,9 +17602,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.delete', f
         $button.prop('disabled', false);
       },
       success: function success(res) {
-        console.log(res);
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#image-row' + row).remove();
-        toastr.success('Have fun storming the castle!', 'Miracle Max Says');
+        // console.log(res);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#image-row' + row).remove(); //toastr.success('Have fun storming the castle!', 'Miracle Max Says')
       }
     });
   } else {

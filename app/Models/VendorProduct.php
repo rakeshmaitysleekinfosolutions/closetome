@@ -9,13 +9,14 @@ use DB;
 class VendorProduct extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'vendor_product_id';
   /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = ['vendor_id','category_id','product_brand','product_name','product_description','product_price',
-                           'product_quantity','subcategory_id'];    
+                           'product_quantity','subcategory_id'];
 
     //Business portal product listing
     public function getProductsByVendor($vendor_id){
@@ -45,7 +46,7 @@ class VendorProduct extends Model
         return $vendor_product;
     }
 
-    
+
     public function getProductVariantDetailById($product_id){
         // $vendor_product = DB::table('vendor_products')
         //                       ->join('categories','vendor_products.category_id','=','categories.category_id')
@@ -62,7 +63,7 @@ class VendorProduct extends Model
                                 ->where('vendor_product_variants.vendor_product_id',$product_id)
                               ->get();
         return $vendor_product;
-        
+
     }
 
     public function getProductColorsById($product_id){
@@ -76,5 +77,17 @@ class VendorProduct extends Model
                                 ->where('vendor_product_id',$product_id)
                               ->get();
         return $vendor_product;
+    }
+    public function colors() {
+        return $this->hasMany(VendorProductColor::class, 'vendor_product_id', 'vendor_product_id');
+    }
+    public function sizes() {
+        return $this->hasMany(VendorProductSize::class, 'vendor_product_id', 'vendor_product_id');
+    }
+    public function image() {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+    public function getAdditionalImages() {
+        return $this->image();
     }
 }

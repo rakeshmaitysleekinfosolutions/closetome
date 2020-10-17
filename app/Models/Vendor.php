@@ -23,6 +23,9 @@ class Vendor extends Model
     public function shopIcon() {
         return $this->image();
     }
+    public function shopBanner() {
+        return $this->image()->where('type', '=', 'banner');
+    }
   /**
      * The attributes that are mass assignable.
      *

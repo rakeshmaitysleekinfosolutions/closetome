@@ -6,10 +6,18 @@
                 <div class="navbar-nav my-4 margin-25">
                     <div style="display: flex;justify-content: flex-end">
 
-                        <a href="{{ route('dish.add')}}" class="btn takfua-back text-white btn-just-icon btn-sm"><i class="fas fa-plus"></i>&nbsp;{{ ucfirst(trans('sentence.restaurant.menu.button.add')) }}</a>&nbsp;
-                        <button id="delete" type="button" class="btn takfua-back text-white"><i class="fas fa-trash"></i>&nbsp;{{ trans('sentence.restaurant.menu.button.delete') }}</button>
+                        <a href="{{ route('dish.add')}}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>&nbsp;{{ ucfirst(trans('sentence.restaurant.menu.button.add')) }}</a>&nbsp;
+                        <button id="delete" type="button" class="btn btn-primary"><i class="fas fa-trash"></i>&nbsp;{{ trans('sentence.restaurant.menu.button.delete') }}</button>
                     </div>
                     <div class="h3">{{ trans('sentence.restaurant.menu.label.title') }}</div>
+                    @if(session()->has('message'))
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <strong>{{ session()->get('message') }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
 
                 </div>
             </div>
@@ -57,6 +65,27 @@
                 var dataTable = $('.datatable').DataTable( {
                     "processing": true,
                     'language': {
+                        "decimal":        "",
+                        "emptyTable":     "No hay datos disponibles en la tabla",
+                        "info":           "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                        "infoEmpty":      "Mostrando 0 to 0 de 0 entradas",
+                        "infoFiltered":   "(filtrado desde _MAX_ total entradas)",
+                        "infoPostFix":    "",
+                        "thousands":      ",",
+                        "lengthMenu":     "Mostrar _MENU_ entradas",
+                        "loadingRecords": "Cargando...",
+                        "search":         "Buscar:",
+                        "zeroRecords":    "No se encontraron registros coincidentes",
+                        "paginate": {
+                            "first":      "Primero",
+                            "last":       "último",
+                            "next":       "Siguiente",
+                            "previous":   "Previo"
+                        },
+                        "aria": {
+                            "sortAscending":  ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
                         'loadingRecords': '&nbsp;',
                         'processing': '<div class="spinner"></div>'
                     },

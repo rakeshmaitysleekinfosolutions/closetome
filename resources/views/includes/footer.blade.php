@@ -36,10 +36,10 @@
                         <ul>
                               <li><a href="{{ route('bus/signup') }}"><i class="fas fa-angle-double-right"></i>{{ trans('sentence.footer.createYourBusiness') }}</a></li>
                               <li><a href="{{ route('bus/signin') }}"><i class="fas fa-angle-double-right"></i>{{ trans('sentence.footer.signInForBusiness') }}</a></li>
-                            <li><a href="search.html"><i class="fas fa-angle-double-right"></i>
+                              <li><a href="{{ route('how-to-create-your-business') }}"><i class="fas fa-angle-double-right"></i>
                                 {{ trans('sentence.footer.howToCreateYourBusiness') }}
                                 </a>
-                            </li>
+                              </li>
 
                             <li><a href="patient-dashboard.html"><i class="fas fa-angle-double-right"></i> {{ trans('sentence.footer.pricing') }}</a></li>
                         </ul>

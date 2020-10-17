@@ -33,8 +33,8 @@
                                         <a class="fas fa-globe icon-font" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                                         <div class="dropleft">
                                             <div class="dropdown-menu shadow my-n4" style="margin-left:860px;" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="{{ route('lang2',['locale'=>'en']) }}">United Kingdom</a>
-                                                <a class="dropdown-item" href="{{ route('lang2',['locale'=>'es']) }}">Spain</a>
+                                                <a class="dropdown-item" href="{{ route('lang2',['locale'=>'en']) }}">{{ strtoupper(trans('sentence.signup.unitedKingdom')) }}</a>
+                                                <a class="dropdown-item" href="{{ route('lang2',['locale'=>'es']) }}">{{ strtoupper(trans('sentence.signup.spain')) }}</a>
                                             </div>
                                         </div>
                                     </div>

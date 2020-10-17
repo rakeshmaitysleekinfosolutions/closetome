@@ -42,7 +42,7 @@ return [
         'partner'                   => 'Portal Negocios',
         'closeToMeText'             => 'Cerca de Mi Negocios Locales es el lugar digital para que todas las tiendas y restaurantes expandan sus negocios en el mundo digital.',
         'createYourBusiness'        => 'Crea tu negocio',
-        'signInForBusiness'         => 'Iniciar sesión para empresas',
+        'signInForBusiness'         => 'Iniciar Sesión',
         'howToCreateYourBusiness'   => 'Como crear tu negocio',
         'pricing'                   => 'Precios',
         'categories'                => 'Categorias',
@@ -107,12 +107,19 @@ return [
                 ]
             ],
         'order' => [
-          'label'=>[
-            'manageOrders' => 'Administrar Pedidos',
-            'clientName' => 'Nombre Cliente',
-            'purchasedProduct' => 'Producto Comprado',
-            'totalOrder' => 'Total Orden'
-          ]
+          'columns'=>[
+              'no'        => 'N',
+              'client'    => 'Nombre Cliente',
+              'product'   => 'Producto Comprado',
+              'order'     => 'Total Order',
+              'date'      => 'Fecha de Orden ',
+              'status'    => 'Estado de Orden',
+              'price'     => 'Price',
+              'empty'     => 'Sin Registros',
+          ],
+            'label'=>[
+                'manageOrders' => 'Administrar Pedidos',
+            ]
         ],
         'customer'  => [
                 'label' => [
@@ -134,31 +141,32 @@ return [
                 ],
         'product'   => [
                     'label' => [
-                      'productName'                 => 'nombre del producto',
-                      'productPrice'                => 'Precio del producto',
-                      'productQuantity'             => 'La cantidad de producto',
-                      'action'                      => 'Acción',
-                      'back'                        => 'atrás',
-                      'addProduct'                  => 'Agregar producto',
-                      'productDetails'              => 'Detalles de producto',
-                      'category'                    => 'Categoría',
-                      'selectOne'                   => 'Seleccione uno',
-                      'subCategory'                 => 'Subcategoría',
-                      'productBrand'                => 'Producto de marca',
-                      'productDescription'          => 'Descripción del producto',
-                      'productColors'               => 'Colores del producto',
-                      'addColors'                   => 'Agregar colores',
-                      'productSizes'                => 'Tamaños de producto',
-                      'addSizes'                    => 'Agregar tamaños',
-                      'productImages'               => 'Imágenes del producto',
-                      'addImage'                    => 'Añadir imagen',
-                      'editProduct'                 => 'Editar producto',
+                          'no'                          => 'N',
+                          'name'                        => 'Nombre Producto ',
+                          'price'                       => 'Precio',
+                          'quantity'                    => 'Cantidad',
+                          'action'                      => 'Acción',
+                          'back'                        => 'atrás',
+                          'addProduct'                  => 'Agregar producto',
+                          'productDetails'              => 'Detalles de producto',
+                          'category'                    => 'Categoría',
+                          'selectOne'                   => 'Seleccione uno',
+                          'subCategory'                 => 'Subcategoría',
+                          'productBrand'                => 'Producto de marca',
+                          'productDescription'          => 'Descripción del producto',
+                          'productColors'               => 'Colores del producto',
+                          'addColors'                   => 'Agregar colores',
+                          'productSizes'                => 'Tamaños de producto',
+                          'addSizes'                    => 'Agregar tamaños',
+                          'productImages'               => 'Imágenes del producto',
+                          'addImage'                    => 'Añadir imagen',
+                          'editProduct'                 => 'Editar producto',
                     ],
                     'button' => [
                         'add'     => 'Añadir',
                         'submit'  => 'Enviar',
                         'update' => 'Actualizar',
-                        'remove' => 'Eliminar'
+                        'remove' => 'Quitar'
                     ],
                     'link' => []
                 ],
@@ -260,7 +268,7 @@ return [
               'columns' => [
                   'no'        => 'N',
                   'name'      => 'Clientes',
-                  'title'     => 'My Clients',
+                  'title'     => 'Clientes',
                   'item'      => 'Producto Comprado',
                   'orders'    => 'Total Orden',
                   'date'      => 'Fecha de Orden',
@@ -304,8 +312,8 @@ return [
                 'title'          => 'Gestionar Menú',
                 'dishDetails'    => 'Detalles Producto',
                 'images'         => 'Imágenes Producto',
-                'success'        => '¡El plato se ha modificado correctamente!',
-                'uploadImage'    => 'Subir Imagen (jpg, png)',
+                'success'        => 'Producto Añadido Correctamente',
+                'uploadImage'    => 'Subir Imagen',
                 'image'          => 'Imagen',
                 'edit'           => 'Editar Producto',
                 'add'            => 'Añadir Producto',
@@ -333,7 +341,7 @@ return [
                 'shopImage'               => 'Shop Icon',
                 'upload'                  => 'Upload Image',
                 'coverImage'              => 'Cover Image',
-                'shopIcon'                => 'Icono del Restaurante ',
+                'icon'                    => 'Icono ',
                 'preferableSize'          => 'Preferrable size',
                 'postCode'                => 'Postal Code',
                 'businessType'            => 'Restaurant Type',
@@ -350,12 +358,13 @@ return [
                 'street'                    => 'Calle',
                 'city'                      => 'Ciudad',
                 'postalCode'                => 'Código Postal',
-                'companyName'               => 'Shop Name',
+                'companyName'               => 'Nombre Restaurante',
                 'companyType'               => 'Tipo de Negocio',
                 'category'                  => 'Categoria',
                 'subcategory'               => 'Sub Category',
                 'selectOption'              => 'select option',
-                'success'                   => 'Shop has been successfully modified!'
+                'success'                   => 'Información modificada correctamente',
+                'uploadImage'               => 'Subir Imagen',
             ],
             'button' => [
                 'add'     => 'Añadir',

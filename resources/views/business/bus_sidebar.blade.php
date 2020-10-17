@@ -9,7 +9,7 @@
                     <li class="list-group-item"><a href="{{ route('bus/dashboard') }}" class=" text-color">{{ ucfirst(trans('sentence.Dashboard')) }}</a></li>
                     <li class="list-group-item"><a href="{{ route('bus/customers') }}" class=" text-color">{{ ucfirst(trans('sentence.My_customers'))}}</a></li>
                     <li class="list-group-item"><a href="{{ route('bus/orders') }}" class=" text-color">{{ ucfirst(trans('sentence.Manage_orders')) }}</a></li>
-                    <li class="list-group-item"><a href="{{ route('bus/products') }}" class=" text-color">{{ ucfirst(trans('sentence.shope_products')) }}</a></li>
+                    <li class="list-group-item"><a href="{{ route('shop.product') }}" class=" text-color">{{ ucfirst(trans('sentence.shope_products')) }}</a></li>
                     <li class="list-group-item"><a href="{{ route('manage-store') }}" class=" text-color">{{ ucfirst(trans('sentence.Manage_Store')) }}</a></li>
                 </ul>
             </div>

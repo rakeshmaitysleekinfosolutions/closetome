@@ -1,4 +1,4 @@
-@extends('businessportal.layouts.master')
+@extends('layouts.seller')
 @section('content')
     <div class="col-md-10 col-sm-12">
         <div class="">
@@ -7,14 +7,20 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="navbar-nav my-4 margin-25">
                             <div class="h3">{{ trans('sentence.business.store.label.manageStore') }}</div>
+                            @if(session()->has('message'))
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <strong>{{ session()->get('message') }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="enter-conta">
                     <form id="frm" action="{{route('update-store')}}" method="post" enctype="multipart/form-data">
-                        @if(session()->has('message'))
-                            <p class="alert {{ session()->get('alert-class', 'alert-info') }}">{{ session()->get('message') }}</p>
-                        @endif
+
                         <input type="hidden" name="vendor_id" value="{{ $businessUserInfo['vendor_id'] }}">
                         <div class="row">
                             @if (isset($status))
@@ -53,21 +59,21 @@
                                                     <input type="text" required name="email" class="form-control" value="{{$businessUserInfo['raw_email']}}" autocomplete="off">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">{{ trans('sentence.business.store.label.companyType') }}<span class="text-danger">*</span></label>
                                                     <select class="form-control" required name="business_type">
                                                         <option>{{ trans('sentence.business.store.label.selectOption') }}</option>
                                                         @if(count($businessTypes))
                                                             @foreach($businessTypes as $businessType)
-                                                                <option {{ $businessUserInfo['business_type'] == $businessType['business_type_name'] ? 'selected' : ''}} value="{!! $businessType['business_type_id'] !!}">{!! $businessType['business_type_name'] !!}</option>
+                                                                <option {{ $businessUserInfo['business_type'] == $businessType['business_type_name'] ? 'selected' : ''}} value="{!! $businessType['business_type_id'] !!}">{!! $businessType['spanish_translation'] !!}</option>
                                                             @endforeach
                                                         @endif
                                                     </select>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">{{ trans('sentence.business.store.label.category') }}<span class="text-danger">*</span></label>
                                                     <select class="form-control" required name="category">
@@ -75,7 +81,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" style="display: none;">
                                                 <div class="form-group">
                                                     <label for="">{{ trans('sentence.business.store.label.subcategory') }}<span class="text-danger">*</span></label>
                                                     <select class="form-control" name="subcategory">
@@ -172,7 +178,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        
+
                                 <div class="form-group">
                                     <label for="">{{ trans('sentence.business.store.label.coverImage') }} &nbsp;<span class="text-danger">({{ trans('sentence.business.store.label.preferableSize') }} : 1200 X 398)</span></label>
                                     <img width="100%" height="250px;" src="{{ isset($businessUserInfo['coverimage']) ? URL::asset('assets/images/vendors/'.$businessUserInfo['coverimage']) : URL::asset('assets/images/placeholder.png') }}" src="" alt=""/>
@@ -200,7 +206,7 @@
                                     </div>
                                 </div>
 
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -208,9 +214,10 @@
                         </div>
                         <hr>
 
-                        <div style="display: flex;justify-content: flex-end">
-                            <button class="btn takfua-back text-white">{{ trans('sentence.business.store.button.updateStore') }}</button>
-                        </div>
+                            <div style="display: flex;justify-content: flex-end">
+                                <button class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;{{ trans('sentence.restaurant.menu.button.save') }}</button>&nbsp;
+                                <a href="{{$back}}" class="btn btn-primary rounded"><i class="fa fa-arrow-alt-circle-left"></i> {{ trans('sentence.restaurant.menu.link.back') }}</a>
+                            </div>
                         @csrf
                     </form>
                 </div>

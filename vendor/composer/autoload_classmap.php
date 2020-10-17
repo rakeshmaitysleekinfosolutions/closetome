@@ -24,6 +24,8 @@ return array(
     'App\\Http\\Controllers\\RestaurantPortal\\OrderController' => $baseDir . '/app/Http/Controllers/RestaurantPortal/OrderController.php',
     'App\\Http\\Controllers\\RestaurantPortal\\RestaurantController' => $baseDir . '/app/Http/Controllers/RestaurantPortal/RestaurantController.php',
     'App\\Http\\Controllers\\RestaurantPortal\\TaskController' => $baseDir . '/app/Http/Controllers/RestaurantPortal/TaskController.php',
+    'App\\Http\\Controllers\\Seller\\SellerController' => $baseDir . '/app/Http/Controllers/Seller/SellerController.php',
+    'App\\Http\\Controllers\\Seller\\Shop\\ProductController' => $baseDir . '/app/Http/Controllers/Seller/Shop/ProductController.php',
     'App\\Http\\Controllers\\Shopcontroller' => $baseDir . '/app/Http/Controllers/Shopcontroller.php',
     'App\\Http\\Controllers\\Usercontroller' => $baseDir . '/app/Http/Controllers/Usercontroller.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',

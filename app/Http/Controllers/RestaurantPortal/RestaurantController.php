@@ -162,30 +162,57 @@ class RestaurantController extends BaseController
             $this->data['street_number'] = '';
         }
         $target = public_path().'/uploads/';
+        // icon
         if (!empty($request->file('shop_icon'))) {
-            if(!empty($request->post('image_id'))) {
-                $image = \App\Models\Image::find($request->post('image_id'));
-                $image->delete();
-            }
-
             $shopIcon   = $request->file('shop_icon');
-            $file       = time() . '-' . strtolower($shopIcon->getClientOriginalName());
-
+            $file       = 'icon'.'-'.time() . '-' . strtolower($shopIcon->getClientOriginalName());
             $shopIcon->move($target, $file);
             $this->data['shop_icon'] = $file;
-        } elseif (!empty($this->restaurant)) {
+        } elseif (!empty($this->restaurant->shopIcon)) {
             $this->data['shop_icon'] = (count($this->restaurant->shopIcon->toArray())) ? $this->restaurant->shopIcon->toArray()[0]['url'] : '';
-            $this->data['image_id'] = (count($this->restaurant->shopIcon->toArray())) ? $this->restaurant->shopIcon->toArray()[0]['id'] : '';
         } else {
             $this->data['shop_icon'] = '';
         }
+        // Banner Image
+        if (!empty($request->file('banner'))) {
+            if(!empty($request->post('banner_id'))) {
+                $image = \App\Models\Image::find($request->post('banner_id'));
+                $image->delete();
+            }
+            $shopIcon   = $request->file('banner');
+            $file       = 'banner'.'-'.time() . '-' . strtolower($shopIcon->getClientOriginalName());
+            $shopIcon->move($target, $file);
+            $this->data['banner'] = $file;
+        } elseif (!empty($this->restaurant->shopBanner)) {
+            $this->data['banner'] = (count($this->restaurant->shopBanner->toArray())) ? $this->restaurant->shopBanner->toArray()[0]['url'] : '';
+        } else {
+            $this->data['banner'] = '';
+        }
+        if (!empty($this->restaurant->shopIcon)) {
+            $this->data['image_id'] = (count($this->restaurant->shopIcon->toArray())) ? $this->restaurant->shopIcon->toArray()[0]['id'] : '';
+        }else {
+            $this->data['image_id'] = '';
+        }
+        if (!empty($this->restaurant->shopBanner)) {
+            $this->data['banner_id'] = (count($this->restaurant->shopBanner->toArray())) ? $this->restaurant->shopBanner->toArray()[0]['id'] : '';
+        }else {
+            $this->data['banner_id'] = '';
+        }
+
+
         //dd($this->data['shop_icon']);
-
-
+        //dd($this->data);
+        // Icon Thumb
         if (!empty($this->restaurant) && is_file(DIR_IMAGE . $this->data['shop_icon'])) {
             $this->data['thumb'] = Helper::resize($this->data['shop_icon'], 100, 100);
         } else {
             $this->data['thumb'] = Helper::resize('no_image.png', 100, 100);
+        }
+        // Banner Thumb
+        if (!empty($this->restaurant) && is_file(DIR_IMAGE . $this->data['banner'])) {
+            $this->data['bthumb'] = Helper::resize($this->data['banner'], 100, 100);
+        } else {
+            $this->data['bthumb'] = Helper::resize('no_image.png', 100, 100);
         }
        // dd($this->data);
         $this->data['placeholder']  = Helper::resize('no_image.png', 100, 100);
@@ -233,11 +260,31 @@ class RestaurantController extends BaseController
                         'password'                  => $this->data['password'],
                         'raw_password'              => $this->data['raw_password'],
                         'shop_icon'                 => $this->data['shop_icon'],
+                        'banner'                    => $this->data['banner'],
                     ]
                 );
-                if(isset($this->data['shop_icon'])) {
+                // Delete Image Id
+                if(!empty($this->data['image_id']) && isset($this->data['image_id'])) {
+                    $image = \App\Models\Image::find($this->data['image_id']);
+                    $image->delete();
+                }
+                if(!empty($this->data['shop_icon'])) {
+
                     $vendor->image()->create([
-                        'url' => $this->data['shop_icon']
+                        'url' => $this->data['shop_icon'],
+                        'type' => 'icon'
+                    ]);
+                }
+                // Delete Banner Id
+                if(!empty($this->data['banner_id']) && isset($this->data['banner_id'])) {
+                    $image = \App\Models\Image::find($this->data['banner_id']);
+                    $image->delete();
+                }
+                if(!empty($this->data['banner'])) {
+
+                    $vendor->image()->create([
+                        'url' => $this->data['banner'],
+                        'type' => 'banner'
                     ]);
                 }
                 session()->put('businessuser_info',[

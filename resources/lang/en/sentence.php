@@ -117,12 +117,19 @@ return [
               ]
             ],
         'order' => [
-          'label'=>[
-            'manageOrders' => 'Manage Orders',
-            'clientName' => 'Client Name',
-            'purchasedProduct' => 'Purchased Product',
-            'totalOrder' => 'Total Orders'
-          ]
+          'columns'=>[
+                'no'        => 'No.',
+                'client'    => 'Manage Orders',
+                'product'   => 'Client Name',
+                'order'     => 'Purchased Product',
+                'date'      => 'Order Date',
+                'status'    => 'Order Status',
+                'price'     => 'Price',
+                'empty'     => 'Empty',
+            ],
+            'label' => [
+                'manageOrders' => 'Manage Orders',
+            ]
         ],
         'customer'  => [
                 'label' => [
@@ -145,9 +152,10 @@ return [
               ],
         'product'   => [
                 'label' => [
-                    'productName'             => 'Product Name',
-                    'productPrice'            => 'Product Price',
-                    'productQuantity'         => 'Product Quantity',
+                    'no'                      => 'No.',
+                    'name'                    => 'Product Name',
+                    'price'                   => 'Product Price',
+                    'quantity'                => 'Product Quantity',
                     'action'                  => 'Action',
                     'back'                    => 'Back',
                     'addProduct'              => 'Add Product',
@@ -344,7 +352,8 @@ return [
                 'category'                  => 'Category',
                 'subcategory'               => 'Sub Category',
                 'selectOption'              => 'select option',
-                'success'                   => 'Shop has been successfully modified!'
+                'success'                   => 'Shop has been successfully modified!',
+                'banner'                    => 'Imagen de portada del negocio',
             ],
             'button' => [
                 'add'     => 'Add',
